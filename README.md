@@ -8,7 +8,7 @@ Simple React time input field.
 
 [![Demo](docs/demo.gif)](https://antonfisher.com/react-simple-timefield/)
 
-###[Demo](https://antonfisher.com/react-simple-timefield/)
+[Demo](https://antonfisher.com/react-simple-timefield/)
 
 ## Installation
 ```bash
