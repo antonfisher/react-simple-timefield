@@ -15,15 +15,16 @@
     "react"
   ],
   "rules": {
+    "spaced-comment": 0,
+    "no-underscore-dangle": 0,
+    "max-len": ["error",120],
     "arrow-parens": ["error","always"],
     "comma-dangle": ["error","never"],
-    "max-len": ["error",120],
-    "no-underscore-dangle": 0,
     "object-curly-spacing": ["error","never"],
-    "react/sort-comp": 0,
+    "import/no-unresolved": 0,
     "react/forbid-prop-types": 0,
     "react/jsx-filename-extension": 0,
-    "spaced-comment": 0
+    "react/sort-comp": 0
   },
   "settings": {
     "react": {
