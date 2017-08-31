@@ -9,18 +9,22 @@ class App extends React.Component {
     super(...args);
 
     this.state = {
-      time: '12:34'
+      time: '12:34',
+      timeSeconds: '12:34:56'
     };
 
     this.onTimeChange = this.onTimeChange.bind(this);
   }
 
-  onTimeChange(time) {
-    this.setState({time});
+  onTimeChange(newTime) {
+    const time = newTime.substr(0, 5);
+    const timeSeconds = newTime.padEnd(8, this.state.timeSeconds.substr(5, 3));
+
+    this.setState({time, timeSeconds});
   }
 
   render() {
-    const {time} = this.state;
+    const {time, timeSeconds} = this.state;
 
     return (
       <section className="container">
@@ -37,6 +41,22 @@ class App extends React.Component {
               border: '2px solid #666',
               fontSize: 42,
               width: 107,
+              padding: '5px 8px',
+              color: '#333',
+              borderRadius: 3
+            }}
+          />
+        </section>
+        <h2>Show seconds:</h2>
+        <section>
+          <TimeField
+            showSeconds
+            value={timeSeconds}
+            onChange={this.onTimeChange}
+            style={{
+              border: '2px solid #666',
+              fontSize: 42,
+              width: 167,
               padding: '5px 8px',
               color: '#333',
               borderRadius: 3

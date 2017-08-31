@@ -1,6 +1,6 @@
 {
   "name": "react-simple-timefield-demo",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "scripts": {
     "dev": "webpack-dev-server --open --progress --config=webpack.config.dev.js",
     "build": "webpack --p --display-error-details --config=webpack.config.prod.js"
@@ -9,8 +9,7 @@
     "babel-polyfill": "^6",
     "prop-types": "^15",
     "react": "^15",
-    "react-dom": "^15",
-    "react-simple-timefield": "^1.0.1"
+    "react-dom": "^15"
   },
   "devDependencies": {
     "babel-core": "6.26.0",

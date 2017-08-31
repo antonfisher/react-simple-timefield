@@ -1,7 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-//const CleanWebpackPlugin = require('clean-webpack-plugin');
 
 const outputPath = path.resolve(__dirname, '..', 'docs');
 
@@ -24,7 +23,6 @@ module.exports = {
   },
   devtool: 'cheap-module-source-map',
   plugins: [
-    //new CleanWebpackPlugin(outputPath),
     new webpack.optimize.UglifyJsPlugin({
       sourceMap: true,
       compress: {

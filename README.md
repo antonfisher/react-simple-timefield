@@ -15,7 +15,18 @@ Simple React time input field.
 npm install --save react-simple-timefield
 ```
 
-## Usage example
+## Usage
+```jsx
+import TimeField from 'react-simple-timefield';
+...
+<TimeField
+    value={time}                  // required, format '00:00' or '00:00:00'
+    onChange={this.onTimeChange}  // required
+    showSeconds                   // default: false
+/>
+```
+
+## Real world example
 ```jsx
 import TimeField from 'react-simple-timefield';
 
@@ -51,6 +62,10 @@ class App extends React.Component {
 }
 ```
 
+## Changelog
+* 1.1.0 Added `showSeconds` property
+* 1.0.0 Initial release
+
 ## Contributing
 ```bash
 # run development mode
@@ -69,6 +84,7 @@ npm run lint
 ```
 
 ## Todo
+- [x] Support full time format with seconds
 - [ ] Material UI support
 - [ ] Tests
 
