@@ -77,3 +77,5 @@ describe('#validateTimeAndCursor()', () => {
     expect(validateTimeAndCursor(true, '12:00:1', DF)[0]).toEqual('12:00:10');
   });
 });
+
+describe.skip('Component');
