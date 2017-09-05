@@ -2,6 +2,7 @@
 npm-debug.log*
 node_modules/
 dist/
+coverage/
 demo/node_modules/
 demo/build/
 demo/build-dev/

@@ -4,16 +4,16 @@ import PropTypes from 'prop-types';
 const DEFAULT_VALUE_SHORT = '00:00';
 const DEFAULT_VALUE_FULL = '00:00:00';
 
-function isNumber(value) {
+export function isNumber(value) {
   const number = Number(value);
   return (!isNaN(number) && String(value) === String(number));
 }
 
-function formatTimeItem(value) {
+export function formatTimeItem(value) {
   return (`${value || ''}00`).substr(0, 2);
 }
 
-function validateTimeAndCursor(showSeconds, value, defaultValue, cursorPosition) {
+export function validateTimeAndCursor(showSeconds, value, defaultValue, cursorPosition) {
   const [oldH, oldM, oldS] = defaultValue.split(':');
 
   let newCursorPosition = Number(cursorPosition);
