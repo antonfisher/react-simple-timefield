@@ -9,8 +9,8 @@
     "build": "babel -d dist src",
     "test": "jest",
     "lint": "eslint --ignore-path .gitignore --ignore-pattern node_modules --ignore-pattern docs -- .",
-    "cover": "node ./node_modules/.bin/jest --coverage",
-    "coveralls": "npm run cover && cat ./coverage/lcov.info | coveralls"
+    "cover": "jest --coverage",
+    "coveralls": "npm run cover && cat ./coverage/lcov.info | ./node_modules/.bin/coveralls"
   },
   "repository": {
     "type": "git",
@@ -48,6 +48,7 @@
     "eslint-plugin-jsx-a11y": "5.1.1",
     "eslint-plugin-react": "7.2.1",
     "jest": "21.0.1",
+    "prop-types": "^15",
     "react": "^15",
     "react-dom": "^15"
   }
