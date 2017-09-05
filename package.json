@@ -10,7 +10,7 @@
     "test": "jest",
     "lint": "eslint --ignore-path .gitignore --ignore-pattern node_modules --ignore-pattern docs -- .",
     "cover": "node ./node_modules/.bin/jest --coverage",
-    "coveralls": "npm run cover && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
+    "coveralls": "npm run cover && cat ./coverage/lcov.info | coveralls"
   },
   "repository": {
     "type": "git",
