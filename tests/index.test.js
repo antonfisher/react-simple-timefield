@@ -59,6 +59,7 @@ describe('#validateTimeAndCursor()', () => {
     expect(validateTimeAndCursor(false, '23:00', DF)[0]).toEqual('23:00');
     expect(validateTimeAndCursor(false, '24:00', DF)[0]).toEqual('23:00');
     expect(validateTimeAndCursor(false, '1:00', DF)[0]).toEqual('10:00');
+    expect(validateTimeAndCursor(false, '24:00', '21:00')[0]).toEqual('21:00');
   });
 
   test('should validate minutes', () => {
