@@ -1,4 +1,4 @@
-const {isNumber, formatTimeItem, validateTimeAndCursor} = require('../src/index');
+import {isNumber, formatTimeItem, validateTimeAndCursor} from '../src/index';
 
 describe('#isNumber()', () => {
   test('should return true for numbers', () => {
@@ -78,5 +78,3 @@ describe('#validateTimeAndCursor()', () => {
     expect(validateTimeAndCursor(true, '12:00:1', DF)[0]).toEqual('12:00:10');
   });
 });
-
-describe.skip('Component');
