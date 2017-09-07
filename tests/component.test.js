@@ -1,12 +1,12 @@
 import React from 'react';
 import {shallow} from 'enzyme';
-import TimeField, {isNumber, formatTimeItem, validateTimeAndCursor} from '../src/index';
+import TimeField from '../src/index';
 
 describe('Component', () => {
   let c;
 
   beforeEach(() => {
-    c = shallow(<TimeField value={'00:00'} onChange={() => {}}/>);
+    c = shallow(<TimeField value={'00:00'} />);
   });
 
   afterEach(() => {
