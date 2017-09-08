@@ -96,6 +96,14 @@ describe('Component', () => {
     expect(b.simulate('change', eventB).find('input').node.props.value).toEqual('12:34:56');
   });
 
+  test('should keep old value if not a number was typed', () => {
+    const eventA = {target: {value: 'a12:34', selectionEnd: 1}, persist};
+    expect(a.simulate('change', eventA).find('input').node.props.value).toEqual('12:34');
+
+    const eventB = {target: {value: '12:34:a56', selectionEnd: 7}, persist};
+    expect(b.simulate('change', eventB).find('input').node.props.value).toEqual('12:34:56');
+  });
+
   test('should handle removed character', () => {
     const eventA = {target: {value: '1:34', selectionEnd: 1}, persist};
     expect(a.simulate('change', eventA).find('input').node.props.value).toEqual('10:34');
