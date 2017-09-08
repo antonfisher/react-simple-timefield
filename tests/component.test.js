@@ -5,10 +5,12 @@ import TimeField from '../src/index';
 describe('Component', () => {
   let a;
   let b;
+  let persist;
   let onChangeA;
   let onChangeB;
 
   beforeEach(() => {
+    persist = jest.fn();
     onChangeA = jest.fn();
     onChangeB = jest.fn();
     a = shallow(<TimeField value={'00:00'} onChange={onChangeA} />);
@@ -35,8 +37,21 @@ describe('Component', () => {
     expect(b.setProps({value: '12:34:56'}).find('input').node.props.value).toEqual('12:34:56');
   });
 
+  test('should keep old values w/o changes', () => {
+    expect(a.setProps({value: '00:00'}).find('input').node.props.value).toEqual('00:00');
+    expect(b.setProps({value: '00:00:00'}).find('input').node.props.value).toEqual('00:00:00');
+  });
+
   test('should validate reserved props before render', () => {
     expect(a.setProps({value: '30:60'}).find('input').node.props.value).toEqual('00:00');
     expect(b.setProps({value: '30:60:90'}).find('input').node.props.value).toEqual('00:00:00');
+  });
+
+  test('should validate value after input change', () => {
+    const eventA = {target: {value: '12:34'}, persist};
+    expect(a.simulate('change', eventA).find('input').node.props.value).toEqual('12:34');
+
+    const eventB = {target: {value: '12:34:56'}, persist};
+    expect(b.simulate('change', eventB).find('input').node.props.value).toEqual('12:34:56');
   });
 });
