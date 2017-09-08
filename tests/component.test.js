@@ -54,4 +54,20 @@ describe('Component', () => {
     const eventB = {target: {value: '12:34:56'}, persist};
     expect(b.simulate('change', eventB).find('input').node.props.value).toEqual('12:34:56');
   });
+
+  test('should handle added character', () => {
+    const eventA = {target: {value: '212:34', selectionEnd: 1}, persist};
+    expect(a.simulate('change', eventA).find('input').node.props.value).toEqual('22:34');
+
+    const eventB = {target: {value: '12:34:156', selectionEnd: 7}, persist};
+    expect(b.simulate('change', eventB).find('input').node.props.value).toEqual('12:34:16');
+  });
+
+  test('should handle removed character', () => {
+    const eventA = {target: {value: '1:34', selectionEnd: 1}, persist};
+    expect(a.simulate('change', eventA).find('input').node.props.value).toEqual('10:34');
+
+    const eventB = {target: {value: '12:34:6', selectionEnd: 6}, persist};
+    expect(b.simulate('change', eventB).find('input').node.props.value).toEqual('12:34:06');
+  });
 });
