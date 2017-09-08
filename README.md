@@ -85,8 +85,9 @@ npm run lint
 
 ## Todo
 - [x] Support full time format with seconds
+- [x] Tests
 - [ ] Material UI support
-- [ ] Tests
+- [ ] Support for Date object as value
 
 ## License
 MIT License. Free use and change. 
