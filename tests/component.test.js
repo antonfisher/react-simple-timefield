@@ -27,6 +27,13 @@ describe('Component', () => {
     expect(b.find('input')).toHaveLength(1);
   });
 
+  test('should render custom input field', () => {
+    const customInput = shallow(<TimeField value={'12:34'} onChange={onChangeA} input={<input id="lol" />} />);
+
+    expect(customInput.find('input')).toHaveLength(1);
+    expect(customInput.find('input').node.props.id).toEqual('lol');
+  });
+
   test('should render time value from props', () => {
     expect(a.find('input').node.props.value).toEqual('12:34');
     expect(b.find('input').node.props.value).toEqual('12:34:56');

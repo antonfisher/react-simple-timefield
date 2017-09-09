@@ -20,9 +20,10 @@ npm install --save react-simple-timefield
 import TimeField from 'react-simple-timefield';
 ...
 <TimeField
-    value={time}                // {String}   required, format '00:00' or '00:00:00'
-    onChange={(value) => {...}} // {Function} required
-    showSeconds                 // {Boolean}  default: false
+    value={time}                   // {String}   required, format '00:00' or '00:00:00'
+    onChange={(value) => {...}}    // {Function} required
+    input={<MyCustomInputElement>} // {Element}  default: <input>
+    showSeconds                    // {Boolean}  default: false
 />
 ```
 
@@ -63,6 +64,7 @@ class App extends React.Component {
 ```
 
 ## Changelog
+* 1.2.0 Added custom input field property
 * 1.1.0 Added `showSeconds` property
 * 1.0.0 Initial release
 
@@ -86,7 +88,7 @@ npm run lint
 ## Todo
 - [x] Support full time format with seconds
 - [x] Tests
-- [ ] Material UI support
+- [x] Custom input field (like Material UI TextField)
 - [ ] Support for Date object as value
 
 ## License

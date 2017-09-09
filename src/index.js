@@ -56,11 +56,13 @@ export default class TimeField extends React.Component {
     value: PropTypes.string.isRequired,
     onChange: PropTypes.func.isRequired,
     showSeconds: PropTypes.bool,
+    input: PropTypes.element,
     style: PropTypes.object
   };
 
   static defaultProps = {
     showSeconds: false,
+    input: null,
     style: {}
   };
 
@@ -151,16 +153,21 @@ export default class TimeField extends React.Component {
 
   render() {
     const {value} = this.state;
-    const {onChange, style, showSeconds, ...props} = this.props;
-    const combinedStyle = {width: (showSeconds ? 54 : 35), ...style};
+    const {onChange, style, showSeconds, input, ...props} = this.props;
+    const inputElement = (input || <input type="text" />);
 
-    return (
-      <input
-        {...props}
-        value={value}
-        style={combinedStyle}
-        onChange={(event) => this.onInputChange(event, (v) => onChange(v))}
-      />
-    );
+    let combinedStyle = {};
+    if (!input) {
+      combinedStyle = {width: (showSeconds ? 54 : 35), ...style};
+    } else {
+      combinedStyle = style;
+    }
+
+    return React.cloneElement(inputElement, {
+      ...props,
+      value,
+      style: combinedStyle,
+      onChange: ((event) => this.onInputChange(event, (v) => onChange(v)))
+    });
   }
 }
