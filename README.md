@@ -20,9 +20,9 @@ npm install --save react-simple-timefield
 import TimeField from 'react-simple-timefield';
 ...
 <TimeField
-    value={time}                  // required, format '00:00' or '00:00:00'
-    onChange={this.onTimeChange}  // required
-    showSeconds                   // default: false
+    value={time}                // {String}   required, format '00:00' or '00:00:00'
+    onChange={(value) => {...}} // {Function} required
+    showSeconds                 // {Boolean}  default: false
 />
 ```
 
