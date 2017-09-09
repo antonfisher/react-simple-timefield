@@ -1,14 +1,12 @@
 # react-simple-timefield
 
-Simple React time input field.
+Simple React time input field, check out [demo](https://antonfisher.com/react-simple-timefield/).
 
 [![Build Status](https://travis-ci.org/antonfisher/react-simple-timefield.svg?branch=master)](https://travis-ci.org/antonfisher/react-simple-timefield)
 [![Coverage Status](https://coveralls.io/repos/github/antonfisher/react-simple-timefield/badge.svg?branch=master)](https://coveralls.io/github/antonfisher/react-simple-timefield?branch=master)
 [![npm](https://img.shields.io/npm/v/react-simple-timefield.svg)](https://www.npmjs.com/package/react-simple-timefield)
 
 [![Demo](docs/demo.gif)](https://antonfisher.com/react-simple-timefield/)
-
-[Demo](https://antonfisher.com/react-simple-timefield/)
 
 ## Installation
 ```bash
