@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const DEFAULT_VALUE_SHORT = '00:00';
-const DEFAULT_VALUE_FULL = '00:00:00';
+const DEFAULT_COLON = ':';
+const DEFAULT_VALUE_SHORT = `00${DEFAULT_COLON}00`;
+const DEFAULT_VALUE_FULL = `00${DEFAULT_COLON}00${DEFAULT_COLON}00`;
 
 export function isNumber(value) {
   const number = Number(value);
@@ -13,11 +14,11 @@ export function formatTimeItem(value) {
   return (`${value || ''}00`).substr(0, 2);
 }
 
-export function validateTimeAndCursor(showSeconds, value, defaultValue, cursorPosition) {
-  const [oldH, oldM, oldS] = defaultValue.split(':');
+export function validateTimeAndCursor(showSeconds, value, defaultValue, colon = DEFAULT_COLON, cursorPosition = 0) {
+  const [oldH, oldM, oldS] = defaultValue.split(colon);
 
   let newCursorPosition = Number(cursorPosition);
-  let [newH, newM, newS] = value.split(':');
+  let [newH, newM, newS] = value.split(colon);
 
   newH = formatTimeItem(newH);
   if (Number(newH[0]) > 2) {
@@ -46,7 +47,7 @@ export function validateTimeAndCursor(showSeconds, value, defaultValue, cursorPo
     }
   }
 
-  const validatedValue = (showSeconds ? `${newH}:${newM}:${newS}` : `${newH}:${newM}`);
+  const validatedValue = (showSeconds ? `${newH}${colon}${newM}${colon}${newS}` : `${newH}${colon}${newM}`);
 
   return [validatedValue, newCursorPosition];
 }
@@ -57,13 +58,15 @@ export default class TimeField extends React.Component {
     onChange: PropTypes.func.isRequired,
     showSeconds: PropTypes.bool,
     input: PropTypes.element,
+    colon: PropTypes.string,
     style: PropTypes.object
   };
 
   static defaultProps = {
     showSeconds: false,
     input: null,
-    style: {}
+    style: {},
+    colon: DEFAULT_COLON
   };
 
   constructor(props, ...args) {
@@ -71,7 +74,12 @@ export default class TimeField extends React.Component {
 
     this.configure(props);
 
-    const [validatedTime] = validateTimeAndCursor(this._showSeconds, this.props.value, this._defaultValue);
+    const [validatedTime] = validateTimeAndCursor(
+      this._showSeconds,
+      this.props.value,
+      this._defaultValue,
+      this._colon
+    );
 
     this.state = {
       value: validatedTime
@@ -86,7 +94,12 @@ export default class TimeField extends React.Component {
     this.configure(nextProps);
 
     if (value !== nextProps.value) {
-      const [validatedTime] = validateTimeAndCursor(this._showSeconds, nextProps.value, this._defaultValue);
+      const [validatedTime] = validateTimeAndCursor(
+        this._showSeconds,
+        nextProps.value,
+        this._defaultValue,
+        this._colon
+      );
       this.setState({
         value: validatedTime
       });
@@ -94,6 +107,7 @@ export default class TimeField extends React.Component {
   }
 
   configure(props) {
+    this._colon = (props.colon && props.colon.length === 1 ? props.colon : DEFAULT_COLON);
     this._showSeconds = Boolean(props.showSeconds);
     this._defaultValue = (this._showSeconds ? DEFAULT_VALUE_FULL : DEFAULT_VALUE_SHORT);
     this._maxLength = this._defaultValue.length;
@@ -108,6 +122,7 @@ export default class TimeField extends React.Component {
     const isType = (inputValue.length > oldValue.length);
     const addedCharacter = (isType ? inputValue[position - 1] : null);
     const removedCharacter = (isType ? null : oldValue[position]);
+    const colon = this._colon;
 
     let newValue = oldValue;
     let newPosition = position;
@@ -115,10 +130,10 @@ export default class TimeField extends React.Component {
     if (addedCharacter !== null) {
       if (position > this._maxLength) {
         newPosition = this._maxLength;
-      } else if ((position === 3 || position === 6) && addedCharacter === ':') {
-        newValue = `${inputValue.substr(0, position - 1)}:${inputValue.substr(position + 1)}`;
+      } else if ((position === 3 || position === 6) && addedCharacter === colon) {
+        newValue = `${inputValue.substr(0, position - 1)}${colon}${inputValue.substr(position + 1)}`;
       } else if ((position === 3 || position === 6) && isNumber(addedCharacter)) {
-        newValue = `${inputValue.substr(0, position - 1)}:${addedCharacter}${inputValue.substr(position + 2)}`;
+        newValue = `${inputValue.substr(0, position - 1)}${colon}${addedCharacter}${inputValue.substr(position + 2)}`;
         newPosition = (position + 1);
       } else if (isNumber(addedCharacter)) { // user typed a number
         newValue = (inputValue.substr(0, position - 1) + addedCharacter + inputValue.substr(position + 1));
@@ -129,8 +144,8 @@ export default class TimeField extends React.Component {
         newPosition = (position - 1);
       }
     } else if (removedCharacter !== null) {
-      if ((position === 2 || position === 5) && removedCharacter === ':') {
-        newValue = `${inputValue.substr(0, position - 1)}0:${inputValue.substr(position)}`;
+      if ((position === 2 || position === 5) && removedCharacter === colon) {
+        newValue = `${inputValue.substr(0, position - 1)}0${colon}${inputValue.substr(position)}`;
         newPosition = position - 1;
       } else { // user removed a number
         newValue = `${inputValue.substr(0, position)}0${inputValue.substr(position)}`;
@@ -140,7 +155,7 @@ export default class TimeField extends React.Component {
     const [
       validatedTime,
       validatedCursorPosition
-    ] = validateTimeAndCursor(this._showSeconds, newValue, oldValue, newPosition);
+    ] = validateTimeAndCursor(this._showSeconds, newValue, oldValue, this._colon, newPosition);
 
     this.setState({value: validatedTime}, () => {
       inputEl.selectionStart = validatedCursorPosition;

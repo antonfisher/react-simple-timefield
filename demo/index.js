@@ -16,21 +16,24 @@ class App extends React.Component {
 
     this.state = {
       time: '12:34',
-      timeSeconds: '12:34:56'
+      timeSeconds: '12:34:56',
+      timeSecondsCustomColon: '12-34-56'
     };
 
     this.onTimeChange = this.onTimeChange.bind(this);
   }
 
-  onTimeChange(newTime) {
+  onTimeChange(value) {
+    const newTime = value.replace(/-/g, ':');
     const time = newTime.substr(0, 5);
     const timeSeconds = newTime.padEnd(8, this.state.timeSeconds.substr(5, 3));
+    const timeSecondsCustomColon = timeSeconds.replace(/:/g, '-');
 
-    this.setState({time, timeSeconds});
+    this.setState({time, timeSeconds, timeSecondsCustomColon});
   }
 
   render() {
-    const {time, timeSeconds} = this.state;
+    const {time, timeSeconds, timeSecondsCustomColon} = this.state;
 
     const muiTheme = getMuiTheme({
       fontFamily: 'Arial',
@@ -75,10 +78,27 @@ class App extends React.Component {
             }}
           />
         </section>
+        <h2>Custom colon:</h2>
+        <section>
+          <TimeField
+            showSeconds
+            colon="-"
+            value={timeSecondsCustomColon}
+            onChange={this.onTimeChange}
+            style={{
+              border: '2px solid #666',
+              fontSize: 42,
+              width: 170,
+              padding: '5px 8px',
+              color: '#333',
+              borderRadius: 3
+            }}
+          />
+        </section>
         <h2>React Material-UI:</h2>
         <section>
           <MuiThemeProvider muiTheme={muiTheme}>
-            <div>
+            <div style={{marginRight: 20}}>
               <IconClock style={{width: 25, marginRight: 6, marginBottom: -6}} color="#bbb" />
               <TimeField
                 showSeconds

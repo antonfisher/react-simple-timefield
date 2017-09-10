@@ -32,17 +32,24 @@ describe('#validateTimeAndCursor()', () => {
   const DF = '00:00:00';
 
   test('should return an array', () => {
-    const res = validateTimeAndCursor(true, '', DF, 0);
+    const res = validateTimeAndCursor(true, '', DF, ':', 0);
     expect(res).toBeInstanceOf(Array);
     expect(res).toHaveLength(2);
     expect(res).toEqual([DF, 0]);
   });
 
-  test('should handle showSeconds option', () => {
+  test('should handle "showSeconds" option', () => {
     expect(validateTimeAndCursor(true, '12:34:56', DF)[0]).toEqual('12:34:56');
     expect(validateTimeAndCursor(true, '12:34', DF)[0]).toEqual('12:34:00');
     expect(validateTimeAndCursor(false, '12:34:56', DF)[0]).toEqual('12:34');
     expect(validateTimeAndCursor(false, '12:34', DF)[0]).toEqual('12:34');
+  });
+
+  test('should handle "colon" option', () => {
+    expect(validateTimeAndCursor(true, '12-34-56', DF, '-')[0]).toEqual('12-34-56');
+    expect(validateTimeAndCursor(true, '12-34', DF, '-')[0]).toEqual('12-34-00');
+    expect(validateTimeAndCursor(false, '12-34-56', DF, '-')[0]).toEqual('12-34');
+    expect(validateTimeAndCursor(false, '12-34', DF, '-')[0]).toEqual('12-34');
   });
 
   test('should return default value if bad format of hours', () => {

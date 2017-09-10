@@ -21,6 +21,7 @@ import TimeField from 'react-simple-timefield';
     value={time}                   // {String}   required, format '00:00' or '00:00:00'
     onChange={(value) => {...}}    // {Function} required
     input={<MyCustomInputElement>} // {Element}  default: <input>
+    colon=":"                      // {String}   default: ":"
     showSeconds                    // {Boolean}  default: false
 />
 ```
@@ -48,20 +49,14 @@ class App extends React.Component {
     const {time} = this.state;
   
     return (
-      <section>
-        <TimeField value={time} onChange={this.onTimeChange} />
-        <TimeField
-          value={time}
-          onChange={this.onTimeChange}
-          style={{color: '#333'}}
-        />
-       </section>
+      <TimeField value={time} onChange={this.onTimeChange} />
     );
   }
 }
 ```
 
 ## Changelog
+* 1.3.0 Added custom colon property
 * 1.2.0 Added custom input field property
 * 1.1.0 Added `showSeconds` property
 * 1.0.0 Initial release
@@ -87,6 +82,7 @@ npm run lint
 - [x] Support full time format with seconds
 - [x] Tests
 - [x] Custom input field (like Material UI TextField)
+- [x] Custom colon
 - [ ] Support for Date object as value
 
 ## License

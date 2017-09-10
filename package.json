@@ -1,12 +1,12 @@
 {
   "name": "react-simple-timefield",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "Simple React time input field",
   "author": "Anton Fisher <a.fschr@gmail.com> (http://antonfisher.com)",
   "license": "MIT",
   "main": "index.js",
   "scripts": {
-    "build": "babel -d dist src",
+    "build": "babel -d dist src && cd ./demo && npm run build",
     "test": "jest",
     "lint": "eslint --ignore-path .gitignore --ignore-pattern node_modules --ignore-pattern docs -- .",
     "cover": "jest --coverage",
