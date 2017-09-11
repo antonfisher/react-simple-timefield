@@ -168,7 +168,7 @@ export default class TimeField extends React.Component {
 
   render() {
     const {value} = this.state;
-    const {onChange, style, showSeconds, input, ...props} = this.props;
+    const {onChange, style, showSeconds, input, colon, ...props} = this.props;
     const inputElement = (input || <input type="text" />);
 
     let combinedStyle = {};
