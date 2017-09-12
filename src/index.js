@@ -113,7 +113,6 @@ export default class TimeField extends React.Component {
     this._maxLength = this._defaultValue.length;
   }
 
-  //onInputChange(event, inputValue, callback) {
   onInputChange(event, callback) {
     const oldValue = this.state.value;
     const inputEl = event.target;
@@ -169,20 +168,24 @@ export default class TimeField extends React.Component {
   render() {
     const {value} = this.state;
     const {onChange, style, showSeconds, input, colon, ...props} = this.props;
-    const inputElement = (input || <input type="text" />);
 
-    let combinedStyle = {};
-    if (!input) {
-      combinedStyle = {width: (showSeconds ? 54 : 35), ...style};
-    } else {
-      combinedStyle = style;
+    if (input) {
+      return React.cloneElement(input, {
+        ...props,
+        value,
+        style,
+        onChange: ((event) => this.onInputChange(event, (v) => onChange(v)))
+      });
     }
 
-    return React.cloneElement(inputElement, {
-      ...props,
-      value,
-      style: combinedStyle,
-      onChange: ((event) => this.onInputChange(event, (v) => onChange(v)))
-    });
+    return (
+      <input
+        type="text"
+        {...props}
+        value={value}
+        onChange={(event) => this.onInputChange(event, (v) => onChange(v))}
+        style={{width: (showSeconds ? 54 : 35), ...style}}
+      />
+    );
   }
 }
