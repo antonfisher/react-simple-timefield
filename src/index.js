@@ -168,13 +168,14 @@ export default class TimeField extends React.Component {
   render() {
     const {value} = this.state;
     const {onChange, style, showSeconds, input, colon, ...props} = this.props;
+    const onChangeHandler = ((event) => this.onInputChange(event, (v) => onChange(v)));
 
     if (input) {
       return React.cloneElement(input, {
         ...props,
         value,
         style,
-        onChange: ((event) => this.onInputChange(event, (v) => onChange(v)))
+        onChange: onChangeHandler
       });
     }
 
@@ -183,7 +184,7 @@ export default class TimeField extends React.Component {
         type="text"
         {...props}
         value={value}
-        onChange={(event) => this.onInputChange(event, (v) => onChange(v))}
+        onChange={onChangeHandler}
         style={{width: (showSeconds ? 54 : 35), ...style}}
       />
     );
