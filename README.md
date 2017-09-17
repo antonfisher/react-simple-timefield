@@ -63,20 +63,27 @@ class App extends React.Component {
 * 1.0.0 Initial release
 
 ## Contributing
+
+#### Run demo:
+For running demo locally, replace:
+```javascript
+import TimeField from '../';
+// to
+import TimeField from '../src';
+```
+in `demo/index.js` file.
+
 ```bash
 # run development mode
 cd demo
 npm run dev
+```
 
-# run demo build
-cd demo
-npm run build
-
-# run main build
-npm run build
-
-# run lint
+#### Build:
+```bash
+npm test
 npm run lint
+npm run build
 ```
 
 ## Todo
@@ -87,4 +94,4 @@ npm run lint
 - [ ] Support for Date object as value
 
 ## License
-MIT License. Free use and change. 
+MIT License. Free use and change.
