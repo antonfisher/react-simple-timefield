@@ -4,31 +4,21 @@
     "es6": true
   },
   "extends": [
-    "airbnb"
+    "fbjs",
+    "plugin:prettier/recommended"
   ],
   "parser": "babel-eslint",
   "parserOptions": {
     "sourceType": "module"
   },
   "plugins": [
+    "prettier",
     "jsx-a11y",
     "react"
   ],
-  "rules": {
-    "spaced-comment": 0,
-    "no-underscore-dangle": 0,
-    "max-len": ["error",120],
-    "arrow-parens": ["error","always"],
-    "comma-dangle": ["error","never"],
-    "object-curly-spacing": ["error","never"],
-    "import/no-unresolved": 0,
-    "react/forbid-prop-types": 0,
-    "react/jsx-filename-extension": 0,
-    "react/sort-comp": 0
-  },
   "settings": {
     "react": {
-      "version": "15"
+      "version": "16.2"
     }
   }
 }

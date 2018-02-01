@@ -12,6 +12,8 @@ Simple React time input field, check out [demo](https://antonfisher.com/react-si
 ## Installation
 ```bash
 npm install --save react-simple-timefield
+
+#for React <16 use: npm install --save react-simple-timefield@1 
 ```
 
 ## Usage
@@ -57,6 +59,7 @@ class App extends React.Component {
 ```
 
 ## Changelog
+* 2.0.0 React v16 support
 * 1.3.0 Added custom colon property
 * 1.2.0 Added custom input field property
 * 1.1.0 Added `showSeconds` property
@@ -82,7 +85,7 @@ npm run dev
 #### Build:
 ```bash
 npm test
-npm run lint
+npm run format
 npm run build
 ```
 

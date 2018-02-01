@@ -2,15 +2,24 @@
   "name": "react-simple-timefield",
   "version": "1.3.2",
   "description": "Simple React time input field",
-  "author": "Anton Fisher <a.fschr@gmail.com> (http://antonfisher.com)",
+  "author": {
+    "name": "Anton Fisher",
+    "email": "a.fschr@gmail.com",
+    "url": "http://antonfisher.com"
+  },
   "license": "MIT",
   "main": "index.js",
   "scripts": {
     "build": "babel -d dist src && cd ./demo && npm run build",
     "test": "jest",
-    "lint": "eslint --ignore-path .gitignore --ignore-pattern node_modules --ignore-pattern docs -- .",
+    "lint": "eslint --ignore-path .gitignore --ignore-pattern docs -- .",
+    "prettier": "prettier --write './**/*.js'",
+    "format": "npm run prettier && npm run lint",
     "cover": "jest --coverage",
-    "coveralls": "npm run cover && cat ./coverage/lcov.info | coveralls"
+    "coveralls": "npm run cover && cat ./coverage/lcov.info | coveralls",
+    "release:patch": "npm run format && npm test && npx standard-version -r patch && git push --follow-tags origin master",
+    "release:minor": "npm run format && npm test && npx standard-version -r minor && git push --follow-tags origin master",
+    "release:major": "npm run format && npm test && npx standard-version -r major && git push --follow-tags origin master"
   },
   "repository": {
     "type": "git",
@@ -27,31 +36,39 @@
     "url": "https://github.com/antonfisher/react-simple-timefield/issues"
   },
   "homepage": "https://github.com/antonfisher/react-simple-timefield#readme",
+  "jest": {
+    "setupTestFrameworkScriptFile": "./tests/setup.js"
+  },
   "peerDependencies": {
     "prop-types": "^15",
-    "react": "^15",
-    "react-dom": "^15"
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0"
   },
   "devDependencies": {
     "babel-cli": "6.26.0",
-    "babel-eslint": "7.2.3",
-    "babel-jest": "21.0.2",
+    "babel-eslint": "8.2.1",
+    "babel-jest": "22.1.0",
     "babel-preset-es2015": "6.24.1",
     "babel-preset-react": "6.24.1",
     "babel-preset-stage-0": "6.24.1",
-    "coveralls": "2.13.1",
-    "enzyme": "2.9.1",
-    "eslint": "4.6.1",
-    "eslint-config-airbnb": "15.1.0",
-    "eslint-config-airbnb-base": "12.0.0",
-    "eslint-import-resolver-webpack": "0.8.3",
-    "eslint-plugin-import": "2.7.0",
-    "eslint-plugin-jsx-a11y": "5.1.1",
-    "eslint-plugin-react": "7.3.0",
-    "jest": "21.0.2",
-    "prop-types": "^15",
-    "react": "^15",
-    "react-dom": "^15",
-    "react-test-renderer": "15.6.1"
+    "coveralls": "3.0.0",
+    "enzyme": "3.3.0",
+    "enzyme-adapter-react-16": "1.1.1",
+    "eslint": "4.16.0",
+    "eslint-config-fbjs": "2.0.1",
+    "eslint-config-prettier": "2.9.0",
+    "eslint-plugin-babel": "4.1.2",
+    "eslint-plugin-flowtype": "2.41.1",
+    "eslint-plugin-import": "2.8.0",
+    "eslint-plugin-jsx-a11y": "6.0.3",
+    "eslint-plugin-prettier": "2.5.0",
+    "eslint-plugin-react": "7.5.1",
+    "eslint-plugin-relay": "0.0.20",
+    "jest": "22.1.4",
+    "prettier": "1.10.2",
+    "prop-types": "15.6.0",
+    "react": "16.2.0",
+    "react-dom": "16.2.0",
+    "react-test-renderer": "16.2.0"
   }
 }
