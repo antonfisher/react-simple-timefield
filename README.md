@@ -6,6 +6,7 @@ Simple React time input field, check out [demo](https://antonfisher.com/react-si
 [![Coverage Status](https://coveralls.io/repos/github/antonfisher/react-simple-timefield/badge.svg?branch=master)](https://coveralls.io/github/antonfisher/react-simple-timefield?branch=master)
 [![npm](https://img.shields.io/npm/dt/react-simple-timefield.svg?colorB=brightgreen)](https://www.npmjs.com/package/react-simple-timefield)
 [![npm](https://img.shields.io/npm/v/react-simple-timefield.svg?colorB=brightgreen)](https://www.npmjs.com/package/react-simple-timefield)
+[![GitHub license](https://img.shields.io/github/license/antonfisher/react-simple-timefield.svg)](https://github.com/antonfisher/react-simple-timefield/blob/master/LICENSE)
 
 [![Demo](docs/demo.gif)](https://antonfisher.com/react-simple-timefield/)
 
