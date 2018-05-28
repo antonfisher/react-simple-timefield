@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React from 'react';
 import PropTypes from 'prop-types';
 
@@ -168,14 +169,16 @@ export default class TimeField extends React.Component {
 
   render() {
     const {value} = this.state;
-    const {onChange, style, showSeconds, input, colon, ...props} = this.props; //eslint-disable-line no-unused-vars
-    const onChangeHandler = (event) => this.onInputChange(event, (v) => onChange(v));
+    const {onChange, style, showSeconds, input, inputRef, colon, ...props} = this.props; //eslint-disable-line no-unused-vars
+    const onChangeHandler = (event) => this.onInputChange(event, (v) => onChange(event, v));
 
     if (input) {
       return React.cloneElement(input, {
         ...props,
+        colon,
         value,
         style,
+        ref: inputRef,
         onChange: onChangeHandler
       });
     }
@@ -185,6 +188,7 @@ export default class TimeField extends React.Component {
         type="text"
         {...props}
         value={value}
+        ref={inputRef}
         onChange={onChangeHandler}
         style={{width: showSeconds ? 54 : 35, ...style}}
       />

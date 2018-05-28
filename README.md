@@ -14,7 +14,7 @@ Simple React time input field, check out [demo](https://antonfisher.com/react-si
 ```bash
 npm install --save react-simple-timefield
 
-#for React <16 use: npm install --save react-simple-timefield@1 
+#for React <16 use: npm install --save react-simple-timefield@1
 ```
 
 ## Usage
@@ -26,7 +26,8 @@ import TimeField from 'react-simple-timefield';
     onChange={(value) => {...}}      // {Function} required
     input={<MyCustomInputElement />} // {Element}  default: <input type="text" />
     colon=":"                        // {String}   default: ":"
-    showSeconds                      // {Boolean}  default: false
+    showSeconds                     // {Boolean}  default: false
+    inputRef={this.inputRef}       // {Object} native DOM element input. React.createRef()
 />
 ```
 
@@ -48,10 +49,10 @@ class App extends React.Component {
   onTimeChange(time) {
     this.setState({time});
   }
-  
+
   render() {
     const {time} = this.state;
-  
+
     return (
       <TimeField value={time} onChange={this.onTimeChange} />
     );
