@@ -14,7 +14,7 @@ Simple React time input field, check out [demo](https://antonfisher.com/react-si
 ```bash
 npm install --save react-simple-timefield
 
-#for React <16 use: npm install --save react-simple-timefield@1 
+#for React <16 use: npm install --save react-simple-timefield@1
 ```
 
 ## Usage
@@ -48,10 +48,10 @@ class App extends React.Component {
   onTimeChange(time) {
     this.setState({time});
   }
-  
+
   render() {
     const {time} = this.state;
-  
+
     return (
       <TimeField value={time} onChange={this.onTimeChange} />
     );
@@ -60,6 +60,7 @@ class App extends React.Component {
 ```
 
 ## Changelog
+* 2.0.1 Do not fall if `value`/`onChange` is undefined (part of issue [#8](https://github.com/antonfisher/react-simple-timefield/issues/8))
 * 2.0.0 React v16 support
 * 1.3.0 Added custom colon property
 * 1.2.0 Added custom input field property
