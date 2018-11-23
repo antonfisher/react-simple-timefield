@@ -1,19 +1,20 @@
 const path = require('path');
-const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 const outputPath = path.resolve(__dirname, '..', 'docs');
 
 module.exports = {
+  mode: 'production',
   context: __dirname,
   entry: './index.js',
   output: {
-    path: outputPath,
     publicPath: '',
+    path: outputPath,
     filename: 'bundle.js'
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js$/,
         use: ['babel-loader'],
@@ -23,10 +24,14 @@ module.exports = {
   },
   devtool: 'cheap-module-source-map',
   plugins: [
-    new webpack.optimize.UglifyJsPlugin({
-      sourceMap: true,
-      compress: {
-        warnings: false
+    new UglifyJsPlugin({
+      parallel: true,
+      extractComments: true,
+      uglifyOptions: {
+        // breaks uglifyjs-webpack-plugin@2.1.7 if isn't set
+        compress: {
+          inline: true
+        }
       }
     }),
     new HtmlWebpackPlugin({

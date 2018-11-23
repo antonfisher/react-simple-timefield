@@ -5,15 +5,16 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const outputPath = path.join(__dirname, 'build-dev');
 
 module.exports = {
+  mode: 'development',
   context: __dirname,
   entry: './index.js',
   output: {
-    path: outputPath,
     publicPath: '',
+    path: outputPath,
     filename: 'bundle.js'
   },
   module: {
-    loaders: [
+    rules: [
       {
         test: /\.js$/,
         use: ['babel-loader'],
