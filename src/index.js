@@ -14,11 +14,17 @@ export function formatTimeItem(value) {
   return `${value || ''}00`.substr(0, 2);
 }
 
-export function validateTimeAndCursor(showSeconds, value, defaultValue, colon = DEFAULT_COLON, cursorPosition = 0) {
+export function validateTimeAndCursor(
+  showSeconds = false,
+  value = '',
+  defaultValue = '',
+  colon = DEFAULT_COLON,
+  cursorPosition = 0
+) {
   const [oldH, oldM, oldS] = defaultValue.split(colon);
 
   let newCursorPosition = Number(cursorPosition);
-  let [newH, newM, newS] = value.split(colon);
+  let [newH, newM, newS] = String(value).split(colon);
 
   newH = formatTimeItem(newH);
   if (Number(newH[0]) > 2) {
@@ -169,7 +175,7 @@ export default class TimeField extends React.Component {
   render() {
     const {value} = this.state;
     const {onChange, style, showSeconds, input, colon, ...props} = this.props; //eslint-disable-line no-unused-vars
-    const onChangeHandler = (event) => this.onInputChange(event, (v) => onChange(v));
+    const onChangeHandler = (event) => this.onInputChange(event, (v) => onChange && onChange(v));
 
     if (input) {
       return React.cloneElement(input, {
