@@ -1,5 +1,6 @@
+.*
+*.code-workspace
 demo
 docs
 node_modules
 coverage
-.*
