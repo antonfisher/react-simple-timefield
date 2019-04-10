@@ -119,9 +119,11 @@ export default class TimeField extends React.Component {
     const inputEl = event.target;
     const inputValue = inputEl.value;
     const position = inputEl.selectionEnd;
-    const isType = inputValue.length > oldValue.length;
-    const addedCharacter = isType ? inputValue[position - 1] : null;
-    const removedCharacter = isType ? null : oldValue[position];
+    const isTyped = inputValue.length > oldValue.length;
+    const cursorCharacter = inputValue[position - 1];
+    const addedCharacter = isTyped ? cursorCharacter : null;
+    const removedCharacter = isTyped ? null : oldValue[position];
+    const replacedSingleCharacter = inputValue.length === oldValue.length ? oldValue[position - 1] : null;
     const colon = this._colon;
 
     let newValue = oldValue;
@@ -145,6 +147,23 @@ export default class TimeField extends React.Component {
         // if user typed NOT a number, then keep old value & position
         newPosition = position - 1;
       }
+    } else if (replacedSingleCharacter !== null) {
+      // user replaced only a single character
+      if (isNumber(cursorCharacter)) {
+        if (position - 1 === 2 || position - 1 === 5) {
+          newValue = `${inputValue.substr(0, position - 1)}${colon}${inputValue.substr(position)}`;
+        } else {
+          newValue = inputValue;
+        }
+      } else {
+        // user replaced a number on some non-number character
+        newValue = oldValue;
+        newPosition = position - 1;
+      }
+    } else if (typeof cursorCharacter !== 'undefined' && cursorCharacter !== colon && !isNumber(cursorCharacter)) {
+      // set of characters replaced by non-number
+      newValue = oldValue;
+      newPosition = position - 1;
     } else if (removedCharacter !== null) {
       if ((position === 2 || position === 5) && removedCharacter === colon) {
         newValue = `${inputValue.substr(0, position - 1)}0${colon}${inputValue.substr(position)}`;
@@ -159,7 +178,7 @@ export default class TimeField extends React.Component {
       this._showSeconds,
       newValue,
       oldValue,
-      this._colon,
+      colon,
       newPosition
     );
 

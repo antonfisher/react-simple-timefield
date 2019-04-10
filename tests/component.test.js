@@ -246,4 +246,104 @@ describe('Component', () => {
         .getElement().props.value
     ).toEqual('12:30:56');
   });
+
+  test('should handle single character replacement', () => {
+    const eventA = {target: {value: '12:44', selectionEnd: 4}, persist};
+    expect(
+      a
+        .simulate('change', eventA)
+        .find('input')
+        .getElement().props.value
+    ).toEqual('12:44');
+
+    const eventB = {target: {value: '12:34:46', selectionEnd: 7}, persist};
+    expect(
+      b
+        .simulate('change', eventB)
+        .find('input')
+        .getElement().props.value
+    ).toEqual('12:34:46');
+  });
+
+  test('should handle single ":" character replacement', () => {
+    const eventA = {target: {value: '12a34', selectionEnd: 3}, persist};
+    expect(
+      a
+        .simulate('change', eventA)
+        .find('input')
+        .getElement().props.value
+    ).toEqual('12:34');
+
+    const eventB = {target: {value: '12:34a56', selectionEnd: 6}, persist};
+    expect(
+      b
+        .simulate('change', eventB)
+        .find('input')
+        .getElement().props.value
+    ).toEqual('12:34:56');
+  });
+
+  test('should handle more than 2 characters replacement (number)', () => {
+    const eventA = {target: {value: '12:2', selectionEnd: 4}, persist};
+    expect(
+      a
+        .simulate('change', eventA)
+        .find('input')
+        .getElement().props.value
+    ).toEqual('12:20');
+
+    const eventB = {target: {value: '12:34:2', selectionEnd: 7}, persist};
+    expect(
+      b
+        .simulate('change', eventB)
+        .find('input')
+        .getElement().props.value
+    ).toEqual('12:34:20');
+  });
+
+  test('should handle 2 characters replacement (invalid character)', () => {
+    const eventA = {target: {value: '12:a', selectionEnd: 4}, persist};
+    expect(
+      a
+        .simulate('change', eventA)
+        .find('input')
+        .getElement().props.value
+    ).toEqual('12:34');
+
+    const eventB = {target: {value: '12:34:a', selectionEnd: 7}, persist};
+    expect(
+      b
+        .simulate('change', eventB)
+        .find('input')
+        .getElement().props.value
+    ).toEqual('12:34:56');
+  });
+
+  test('should handle more than 2 characters replacement (invalid character)', () => {
+    const eventA = {target: {value: '12a', selectionEnd: 3}, persist};
+    expect(
+      a
+        .simulate('change', eventA)
+        .find('input')
+        .getElement().props.value
+    ).toEqual('12:34');
+
+    const eventB = {target: {value: '12:34a', selectionEnd: 6}, persist};
+    expect(
+      b
+        .simulate('change', eventB)
+        .find('input')
+        .getElement().props.value
+    ).toEqual('12:34:56');
+  });
+
+  test('should handle all characters replacement (invalid character)', () => {
+    const eventA = {target: {value: 'a', selectionEnd: 1}, persist};
+    expect(
+      a
+        .simulate('change', eventA)
+        .find('input')
+        .getElement().props.value
+    ).toEqual('12:34');
+  });
 });
