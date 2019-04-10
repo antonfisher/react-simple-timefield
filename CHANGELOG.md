@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.0.2](https://github.com/antonfisher/react-simple-timefield/compare/v2.0.1...v2.0.2) (2019-04-10)
+
+
+### Bug Fixes
+
+* user can type letter when component first loads (closes [#9](https://github.com/antonfisher/react-simple-timefield/issues/9)) ([8f51c70](https://github.com/antonfisher/react-simple-timefield/commit/8f51c70))
+
+
+
 <a name="2.0.1"></a>
 ## [2.0.1](https://github.com/antonfisher/react-simple-timefield/compare/v2.0.0...v2.0.1) (2018-11-23)
 
