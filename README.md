@@ -60,6 +60,7 @@ class App extends React.Component {
 ```
 
 ## Changelog
+* 2.0.2 user can type letter when component first loads (closes [#9](https://github.com/antonfisher/react-simple-timefield/issues/9)) ([8f51c70](https://github.com/antonfisher/react-simple-timefield/commit/8f51c70))
 * 2.0.1 Do not fall if `value`/`onChange` is undefined (part of issue [#8](https://github.com/antonfisher/react-simple-timefield/issues/8))
 * 2.0.0 React v16 support
 * 1.3.0 Added custom colon property
@@ -90,13 +91,6 @@ npm test
 npm run format
 npm run build
 ```
-
-## Todo
-- [x] Support full time format with seconds
-- [x] Tests
-- [x] Custom input field (like Material UI TextField)
-- [x] Custom colon
-- [ ] Support for Date object as value
 
 ## License
 MIT License. Free use and change.
