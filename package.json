@@ -17,9 +17,9 @@
     "format": "npm run prettier && npm run lint",
     "cover": "jest --coverage",
     "coveralls": "npm run cover && cat ./coverage/lcov.info | coveralls",
-    "release:patch": "npm run format && npm test && npx standard-version -r patch && git push --follow-tags origin master",
-    "release:minor": "npm run format && npm test && npx standard-version -r minor && git push --follow-tags origin master",
-    "release:major": "npm run format && npm test && npx standard-version -r major && git push --follow-tags origin master"
+    "release:patch": "npm run format && npm test && npm run build && npx standard-version -r patch && git push --follow-tags origin master",
+    "release:minor": "npm run format && npm test && npm run build && npx standard-version -r minor && git push --follow-tags origin master",
+    "release:major": "npm run format && npm test && npm run build && npx standard-version -r major && git push --follow-tags origin master"
   },
   "repository": {
     "type": "git",
