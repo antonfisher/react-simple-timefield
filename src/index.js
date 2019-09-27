@@ -97,7 +97,7 @@ export default class TimeField extends React.Component {
     if (value !== this.props.value) {
       const [validatedTime] = validateTimeAndCursor(
         this._showSeconds,
-        nextProps.value,
+        this.props.value,
         this._defaultValue,
         this._colon
       );
