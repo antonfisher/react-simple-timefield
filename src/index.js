@@ -89,12 +89,12 @@ export default class TimeField extends React.Component {
     this.onInputChange = this.onInputChange.bind(this);
   }
 
-  componentWillReceiveProps(nextProps) {
-    const {value} = this.props;
+  componentDidUpdate(oldProps) {
+    const {value} = oldProps;
 
-    this.configure(nextProps);
+    this.configure(this.props);
 
-    if (value !== nextProps.value) {
+    if (value !== this.props.value) {
       const [validatedTime] = validateTimeAndCursor(
         this._showSeconds,
         nextProps.value,
