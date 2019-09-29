@@ -59,7 +59,7 @@ class App extends React.Component {
 }
 ```
 
-## Version 2 to 3 migration
+## Migrate version 2.x to version 3.x
 
 There is a breaking change in version 3.
 The `onChange` callback property will be called with two arguments.
