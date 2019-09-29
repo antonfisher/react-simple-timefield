@@ -179,7 +179,7 @@ export default class TimeField extends React.Component {
     this.setState({value: validatedTime}, () => {
       inputEl.selectionStart = validatedCursorPosition;
       inputEl.selectionEnd = validatedCursorPosition;
-      callback(validatedTime);
+      callback(event, validatedTime);
     });
 
     event.persist();
@@ -188,7 +188,7 @@ export default class TimeField extends React.Component {
   render() {
     const {value} = this.state;
     const {onChange, style, showSeconds, input, colon, ...props} = this.props; //eslint-disable-line no-unused-vars
-    const onChangeHandler = (event) => this.onInputChange(event, (v) => onChange && onChange(v));
+    const onChangeHandler = (event) => this.onInputChange(event, (e, v) => onChange && onChange(e, v));
 
     if (input) {
       return React.cloneElement(input, {

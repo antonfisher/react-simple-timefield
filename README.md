@@ -22,11 +22,11 @@ npm install --save react-simple-timefield
 import TimeField from 'react-simple-timefield';
 ...
 <TimeField
-    value={time}                     // {String}   required, format '00:00' or '00:00:00'
-    onChange={(value) => {...}}      // {Function} required
-    input={<MyCustomInputElement />} // {Element}  default: <input type="text" />
-    colon=":"                        // {String}   default: ":"
-    showSeconds                      // {Boolean}  default: false
+    value={time}                       // {String}   required, format '00:00' or '00:00:00'
+    onChange={(event, value) => {...}} // {Function} required
+    input={<MyCustomInputElement />}   // {Element}  default: <input type="text" />
+    colon=":"                          // {String}   default: ":"
+    showSeconds                        // {Boolean}  default: false
 />
 ```
 
@@ -45,7 +45,7 @@ class App extends React.Component {
     this.onTimeChange = this.onTimeChange.bind(this);
   }
 
-  onTimeChange(time) {
+  onTimeChange(event, time) {
     this.setState({time});
   }
 
@@ -57,6 +57,19 @@ class App extends React.Component {
     );
   }
 }
+```
+
+## Version 2 to 3 migration
+
+There is a breaking change in version 3.
+The `onChange` callback property will be called with two arguments.
+
+```jsx
+// Before:
+<TimeField onChange={(value) => console.log(value)} />
+
+//After
+<TimeField onChange={(event, value) => console.log(event, value)} />
 ```
 
 ## Contributing
