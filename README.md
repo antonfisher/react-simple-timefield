@@ -68,7 +68,7 @@ The `onChange` callback property will be called with two arguments.
 // Before:
 <TimeField onChange={(value) => console.log(value)} />
 
-//After
+// After:
 <TimeField onChange={(event, value) => console.log(event, value)} />
 ```
 
