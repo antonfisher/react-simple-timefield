@@ -78,40 +78,34 @@ export default class TimeField extends React.Component {
   constructor(props, ...args) {
     super(props, ...args);
 
-    this.configure(props);
-
-    const [validatedTime] = validateTimeAndCursor(this._showSeconds, this.props.value, this._defaultValue, this._colon);
+    const _showSeconds = Boolean(props.showSeconds);
+    const _defaultValue = _showSeconds ? DEFAULT_VALUE_FULL : DEFAULT_VALUE_SHORT;
+    const _colon = props.colon && props.colon.length === 1 ? props.colon : DEFAULT_COLON;
+    const [validatedTime] = validateTimeAndCursor(_showSeconds, this.props.value, _defaultValue, _colon);
 
     this.state = {
-      value: validatedTime
+      value: validatedTime,
+      _colon,
+      _showSeconds,
+      _defaultValue,
+      _maxLength: _defaultValue.length
     };
 
     this.onInputChange = this.onInputChange.bind(this);
   }
 
-  componentWillReceiveProps(nextProps) {
-    const {value} = this.props;
-
-    this.configure(nextProps);
-
-    if (value !== nextProps.value) {
+  componentDidUpdate(prevProps) {
+    if (this.props.value !== prevProps.value) {
       const [validatedTime] = validateTimeAndCursor(
-        this._showSeconds,
-        nextProps.value,
-        this._defaultValue,
-        this._colon
+        this.state._showSeconds,
+        this.props.value,
+        this.state._defaultValue,
+        this.state._colon
       );
       this.setState({
         value: validatedTime
       });
     }
-  }
-
-  configure(props) {
-    this._colon = props.colon && props.colon.length === 1 ? props.colon : DEFAULT_COLON;
-    this._showSeconds = Boolean(props.showSeconds);
-    this._defaultValue = this._showSeconds ? DEFAULT_VALUE_FULL : DEFAULT_VALUE_SHORT;
-    this._maxLength = this._defaultValue.length;
   }
 
   onInputChange(event, callback) {
@@ -124,7 +118,7 @@ export default class TimeField extends React.Component {
     const addedCharacter = isTyped ? cursorCharacter : null;
     const removedCharacter = isTyped ? null : oldValue[position];
     const replacedSingleCharacter = inputValue.length === oldValue.length ? oldValue[position - 1] : null;
-    const colon = this._colon;
+    const colon = this.state._colon;
 
     let newValue = oldValue;
     let newPosition = position;
@@ -175,7 +169,7 @@ export default class TimeField extends React.Component {
     }
 
     const [validatedTime, validatedCursorPosition] = validateTimeAndCursor(
-      this._showSeconds,
+      this.state._showSeconds,
       newValue,
       oldValue,
       colon,
