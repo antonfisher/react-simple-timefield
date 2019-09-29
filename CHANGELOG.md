@@ -1,6 +1,14 @@
-# Change Log
+# Changelog
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+## [3.0.0](https://github.com/antonfisher/react-simple-timefield/compare/v2.0.3...v3.0.0) (2019-09-29)
+
+
+### Bug Fixes
+
+* [BREAKING CHANGES] add event to callback arguments (closes [#5](https://github.com/antonfisher/react-simple-timefield/issues/5)) ([5b5849c](https://github.com/antonfisher/react-simple-timefield/commit/5b5849c))
+* remove react deprecation warning, replace componentWillReceiveProps call (closes [#11](https://github.com/antonfisher/react-simple-timefield/issues/11)) ([ad1f667](https://github.com/antonfisher/react-simple-timefield/commit/ad1f667))
 
 ## [2.0.3](https://github.com/antonfisher/react-simple-timefield/compare/v2.0.2...v2.0.3) (2019-04-10)
 
