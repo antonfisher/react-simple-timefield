@@ -1,12 +1,7 @@
 import 'babel-polyfill';
 import React from 'react';
 import ReactDOM from 'react-dom';
-
-import {yellow800} from 'material-ui/styles/colors';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import IconClock from 'material-ui/svg-icons/device/access-time';
-import TextField from 'material-ui/TextField';
+import TextField from '@material-ui/core/TextField';
 
 import TimeField from '../';
 //import TimeField from '../src';
@@ -35,16 +30,6 @@ class App extends React.Component {
 
   render() {
     const {time, timeSeconds, timeSecondsCustomColon} = this.state;
-
-    const muiTheme = getMuiTheme({
-      fontFamily: 'Arial',
-      palette: {
-        primary1Color: yellow800
-      },
-      textField: {
-        floatingLabelColor: '#666'
-      }
-    });
 
     return (
       <section className="container">
@@ -98,18 +83,15 @@ class App extends React.Component {
         </section>
         <h2>React Material-UI:</h2>
         <section>
-          <MuiThemeProvider muiTheme={muiTheme}>
-            <div style={{marginRight: 20}}>
-              <IconClock style={{width: 25, marginRight: 6, marginBottom: -6}} color="#bbb" />
-              <TimeField
-                showSeconds
-                value={timeSeconds}
-                onChange={this.onTimeChange}
-                style={{width: 82, fontSize: 20}}
-                input={<TextField floatingLabelFixed floatingLabelText="Time" />}
-              />
-            </div>
-          </MuiThemeProvider>
+          <div style={{marginRight: 20}}>
+            <TimeField
+              showSeconds
+              value={timeSeconds}
+              onChange={this.onTimeChange}
+              style={{width: 88}}
+              input={<TextField label="Name" value={timeSeconds} variant="outlined" />}
+            />
+          </div>
         </section>
       </section>
     );

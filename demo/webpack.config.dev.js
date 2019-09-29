@@ -1,6 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const CleanWebpackPlugin = require('clean-webpack-plugin');
+const {CleanWebpackPlugin} = require('clean-webpack-plugin');
 
 const outputPath = path.join(__dirname, 'build-dev');
 
@@ -23,7 +23,7 @@ module.exports = {
     ]
   },
   plugins: [
-    new CleanWebpackPlugin(outputPath),
+    new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       hash: true,
       inject: true,
