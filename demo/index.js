@@ -19,7 +19,7 @@ class App extends React.Component {
     this.onTimeChange = this.onTimeChange.bind(this);
   }
 
-  onTimeChange(value) {
+  onTimeChange(event, value) {
     const newTime = value.replace(/-/g, ':');
     const time = newTime.substr(0, 5);
     const timeSeconds = newTime.padEnd(8, this.state.timeSeconds.substr(5, 3));
