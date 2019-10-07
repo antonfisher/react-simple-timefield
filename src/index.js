@@ -11,7 +11,19 @@ export function isNumber(value) {
 }
 
 export function formatTimeItem(value) {
-  return `${value || ''}00`.substr(0, 2);
+  var v = parseInt(value, 10);
+  if (isNaN(v)) {
+    return '00';
+  }
+
+  if (v < 10) {
+    return `0${v}`;
+  }
+  if (v > 99) {
+    return `${v}`.substr(0, 2);
+  }
+
+  return `${v}`;
 }
 
 export function validateTimeAndCursor(
