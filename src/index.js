@@ -11,7 +11,7 @@ export function isNumber(value) {
 }
 
 export function formatTimeItem(value) {
-  return `${value || ''}00`.substr(0, 2);
+  return `00${value || ''}`.substr(2, -2);
 }
 
 export function validateTimeAndCursor(
