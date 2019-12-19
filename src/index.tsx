@@ -1,16 +1,15 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, {ChangeEvent, ReactElement} from 'react';
 
 const DEFAULT_COLON = ':';
 const DEFAULT_VALUE_SHORT = `00${DEFAULT_COLON}00`;
 const DEFAULT_VALUE_FULL = `00${DEFAULT_COLON}00${DEFAULT_COLON}00`;
 
-export function isNumber(value) {
+export function isNumber<T>(value: T): boolean {
   const number = Number(value);
   return !isNaN(number) && String(value) === String(number);
 }
 
-export function formatTimeItem(value) {
+export function formatTimeItem(value: string): string {
   return `${value || ''}00`.substr(0, 2);
 }
 
@@ -20,7 +19,7 @@ export function validateTimeAndCursor(
   defaultValue = '',
   colon = DEFAULT_COLON,
   cursorPosition = 0
-) {
+): [string, number] {
   const [oldH, oldM, oldS] = defaultValue.split(colon);
 
   let newCursorPosition = Number(cursorPosition);
@@ -58,16 +57,26 @@ export function validateTimeAndCursor(
   return [validatedValue, newCursorPosition];
 }
 
-export default class TimeField extends React.Component {
-  static propTypes = {
-    value: PropTypes.string.isRequired,
-    onChange: PropTypes.func.isRequired,
-    showSeconds: PropTypes.bool,
-    input: PropTypes.element,
-    colon: PropTypes.string,
-    style: PropTypes.object
-  };
+type onChangeType = (event: ChangeEvent<HTMLInputElement>, value: string) => void;
 
+interface Props {
+  value: string;
+  onChange: onChangeType;
+  showSeconds?: boolean;
+  input?: ReactElement;
+  colon?: string;
+  style?: CSSRuleList;
+}
+
+interface State {
+  value: string;
+  _colon: string;
+  _defaultValue: string;
+  _showSeconds: boolean;
+  _maxLength: number;
+}
+
+export default class TimeField extends React.Component<Props, State> {
   static defaultProps = {
     showSeconds: false,
     input: null,
@@ -75,7 +84,7 @@ export default class TimeField extends React.Component {
     colon: DEFAULT_COLON
   };
 
-  constructor(props, ...args) {
+  constructor(props: Props, ...args: any) {
     super(props, ...args);
 
     const _showSeconds = Boolean(props.showSeconds);
@@ -94,7 +103,7 @@ export default class TimeField extends React.Component {
     this.onInputChange = this.onInputChange.bind(this);
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps: Props): void {
     if (this.props.value !== prevProps.value) {
       const [validatedTime] = validateTimeAndCursor(
         this.state._showSeconds,
@@ -108,11 +117,11 @@ export default class TimeField extends React.Component {
     }
   }
 
-  onInputChange(event, callback) {
+  onInputChange(event: ChangeEvent<HTMLInputElement>, callback: onChangeType): void {
     const oldValue = this.state.value;
     const inputEl = event.target;
     const inputValue = inputEl.value;
-    const position = inputEl.selectionEnd;
+    const position = inputEl.selectionEnd || 0;
     const isTyped = inputValue.length > oldValue.length;
     const cursorCharacter = inputValue[position - 1];
     const addedCharacter = isTyped ? cursorCharacter : null;
@@ -124,8 +133,8 @@ export default class TimeField extends React.Component {
     let newPosition = position;
 
     if (addedCharacter !== null) {
-      if (position > this._maxLength) {
-        newPosition = this._maxLength;
+      if (position > this.state._maxLength) {
+        newPosition = this.state._maxLength;
       } else if ((position === 3 || position === 6) && addedCharacter === colon) {
         newValue = `${inputValue.substr(0, position - 1)}${colon}${inputValue.substr(position + 1)}`;
       } else if ((position === 3 || position === 6) && isNumber(addedCharacter)) {
@@ -185,10 +194,11 @@ export default class TimeField extends React.Component {
     event.persist();
   }
 
-  render() {
+  render(): ReactElement {
     const {value} = this.state;
     const {onChange, style, showSeconds, input, colon, ...props} = this.props; //eslint-disable-line no-unused-vars
-    const onChangeHandler = (event) => this.onInputChange(event, (e, v) => onChange && onChange(e, v));
+    const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) =>
+      this.onInputChange(event, (e: ChangeEvent<HTMLInputElement>, v: string) => onChange && onChange(e, v));
 
     if (input) {
       return React.cloneElement(input, {

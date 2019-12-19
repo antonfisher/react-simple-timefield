@@ -81,7 +81,7 @@ import TimeField from '../';
 // to
 import TimeField from '../src';
 ```
-in `demo/index.js` file.
+in `demo/index.tsx` file.
 
 ```bash
 # run development mode

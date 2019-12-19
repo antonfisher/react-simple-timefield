@@ -14,6 +14,7 @@
     "test": "jest",
     "lint": "eslint --ignore-path .gitignore --ignore-pattern docs -- .",
     "prettier": "prettier --ignore-path .gitignore --write './**/*.js'",
+    "typecheck": "tsc",
     "format": "npm run prettier && npm run lint",
     "cover": "jest --coverage",
     "coveralls": "npm run cover && cat ./coverage/lcov.info | coveralls",
@@ -45,6 +46,9 @@
     "react-dom": "^16.0.0"
   },
   "devDependencies": {
+    "@types/react": "^16.9.16",
+    "@typescript-eslint/eslint-plugin": "^2.12.0",
+    "@typescript-eslint/parser": "^2.12.0",
     "babel-cli": "6.26.0",
     "babel-eslint": "10.0.3",
     "babel-jest": "23.6.0",
@@ -69,6 +73,7 @@
     "prop-types": "15.7.2",
     "react": "16.10.1",
     "react-dom": "16.10.1",
-    "react-test-renderer": "16.10.1"
+    "react-test-renderer": "16.10.1",
+    "typescript": "^3.7.3"
   }
 }
