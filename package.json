@@ -10,7 +10,7 @@
   "license": "MIT",
   "main": "index.js",
   "scripts": {
-    "build": "babel -d dist src && cd ./demo && npm run build && cd -",
+    "build": "tsc && cd ./demo && npm run build && cd -",
     "test": "jest",
     "lint": "eslint --ignore-path .gitignore --ignore-pattern docs -- .",
     "prettier": "prettier --ignore-path .gitignore --write './**/*.js'",
