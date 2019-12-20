@@ -1,6 +1,6 @@
 import React from 'react';
 import {shallow, mount} from 'enzyme';
-import TimeField from '../src/index';
+import TimeField from '../index';
 
 describe('Component', () => {
   let a;
