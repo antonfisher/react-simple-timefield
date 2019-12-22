@@ -1,13 +1,13 @@
-import React from 'react';
-import {shallow, mount} from 'enzyme';
-import TimeField from '../index';
+import React, {ReactElement} from 'react';
+import {shallow, mount, ReactWrapper} from 'enzyme';
+import TimeField from '../src/index';
 
 describe('Component', () => {
-  let a;
-  let b;
-  let persist;
-  let onChangeA;
-  let onChangeB;
+  let a: ReactWrapper | null;
+  let b: ReactWrapper | null;
+  let persist: jest.Mock;
+  let onChangeA: jest.Mock;
+  let onChangeB: jest.Mock;
 
   beforeEach(() => {
     persist = jest.fn();

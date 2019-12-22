@@ -1,4 +1,4 @@
-import {isNumber, formatTimeItem, validateTimeAndCursor} from '../index';
+import {isNumber, formatTimeItem, validateTimeAndCursor} from '../src/index';
 
 describe('#isNumber()', () => {
   test('should return true for numbers', () => {

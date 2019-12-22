@@ -1,4 +1,4 @@
-import React, {ChangeEvent, ReactElement} from 'react';
+import React, {ChangeEvent, CSSProperties, ReactElement} from 'react';
 
 const DEFAULT_COLON = ':';
 const DEFAULT_VALUE_SHORT = `00${DEFAULT_COLON}00`;
@@ -9,7 +9,7 @@ export function isNumber<T>(value: T): boolean {
   return !isNaN(number) && String(value) === String(number);
 }
 
-export function formatTimeItem(value: string): string {
+export function formatTimeItem(value?: string | number): string {
   return `${value || ''}00`.substr(0, 2);
 }
 
@@ -60,12 +60,12 @@ export function validateTimeAndCursor(
 type onChangeType = (event: ChangeEvent<HTMLInputElement>, value: string) => void;
 
 interface Props {
-  value: string;
-  onChange: onChangeType;
+  value?: string;
+  onChange?: onChangeType;
   showSeconds?: boolean;
-  input?: ReactElement;
+  input: ReactElement | null;
   colon?: string;
-  style?: CSSRuleList;
+  style?: CSSProperties | {};
 }
 
 interface State {
@@ -77,7 +77,7 @@ interface State {
 }
 
 export default class TimeField extends React.Component<Props, State> {
-  static defaultProps = {
+  static defaultProps: Props = {
     showSeconds: false,
     input: null,
     style: {},

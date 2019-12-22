@@ -11,8 +11,8 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "strict": true,
+    "strictNullChecks": false,
     "forceConsistentCasingInFileNames": true,
-    "outDir": "dist",
     "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
@@ -20,6 +20,6 @@
     "jsx": "react"
   },
   "include": [
-    "src",
+    "tests"
   ]
 }
