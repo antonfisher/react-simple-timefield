@@ -84,8 +84,8 @@ export default class TimeField extends React.Component<Props, State> {
     colon: DEFAULT_COLON
   };
 
-  constructor(props: Props, ...args: any) {
-    super(props, ...args);
+  constructor(props: Props) {
+    super(props);
 
     const _showSeconds = Boolean(props.showSeconds);
     const _defaultValue = _showSeconds ? DEFAULT_VALUE_FULL : DEFAULT_VALUE_SHORT;
