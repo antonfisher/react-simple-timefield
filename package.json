@@ -20,7 +20,8 @@
     "coveralls": "npm run cover && cat ./coverage/lcov.info | coveralls",
     "release:patch": "npm run format && npm test && npm run build && npx standard-version -r patch && git push --follow-tags origin master",
     "release:minor": "npm run format && npm test && npm run build && npx standard-version -r minor && git push --follow-tags origin master",
-    "release:major": "npm run format && npm test && npm run build && npx standard-version -r major && git push --follow-tags origin master"
+    "release:major": "npm run format && npm test && npm run build && npx standard-version -r major && git push --follow-tags origin master",
+    "update-contributors": "npx contributor"
   },
   "repository": {
     "type": "git",
@@ -80,6 +81,16 @@
     "typescript": "3.7.3"
   },
   "dependencies": {
-    "@types/enzyme-adapter-react-16": "^1.0.5"
-  }
+    "@types/enzyme-adapter-react-16": "1.0.5"
+  },
+  "contributors": [
+    {
+      "name": "Anton Fisher",
+      "url": "https://github.com/antonfisher"
+    },
+    {
+      "name": "Nicholas Yang",
+      "url": "https://github.com/NicholasLYang"
+    }
+  ]
 }
