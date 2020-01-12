@@ -3,22 +3,35 @@
     "browser": true,
     "es6": true
   },
-  "extends": [
-    "fbjs",
-    "plugin:prettier/recommended"
-  ],
+  "extends": ["fbjs", "plugin:prettier/recommended"],
   "parser": "babel-eslint",
   "parserOptions": {
     "sourceType": "module"
   },
-  "plugins": [
-    "prettier",
-    "jsx-a11y",
-    "react"
-  ],
+  "plugins": ["prettier", "jsx-a11y", "react"],
   "settings": {
     "react": {
       "version": "16.2"
     }
-  }
+  },
+  "overrides": [
+    {
+      "files": ["**/*.ts", "**/*.tsx"],
+      "env": {"browser": true, "es6": true, "node": true},
+      "extends": [
+        "eslint:recommended",
+        "plugin:react/recommended",
+        "plugin:@typescript-eslint/eslint-recommended",
+        "plugin:@typescript-eslint/recommended"
+      ],
+      "parserOptions": {
+        "ecmaFeatures": { "jsx": true },
+        "ecmaVersion": 2018,
+        "sourceType": "module",
+        "project": "./tsconfig.json"
+      },
+      "parser": "@typescript-eslint/parser",
+      "plugins": ["react", "@typescript-eslint"]
+    }
+  ]
 }

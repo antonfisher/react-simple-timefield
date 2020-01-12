@@ -8,3 +8,4 @@ coverage/
 demo/node_modules/
 demo/build/
 demo/build-dev/
+.DS_Store
