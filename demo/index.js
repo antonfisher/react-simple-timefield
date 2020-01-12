@@ -7,8 +7,8 @@ import TimeField from '../';
 //import TimeField from '../src';
 
 class App extends React.Component {
-  constructor(...args) {
-    super(...args);
+  constructor() {
+    super();
 
     this.state = {
       time: '12:34',
