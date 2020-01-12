@@ -27,6 +27,9 @@ module.exports = {
       }
     ]
   },
+  resolve: {
+    extensions: ['.tsx', '.js']
+  },
   devtool: 'cheap-module-source-map',
   plugins: [
     new UglifyJsPlugin({

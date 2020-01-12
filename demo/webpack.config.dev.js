@@ -27,6 +27,9 @@ module.exports = {
       }
     ]
   },
+  resolve: {
+    extensions: ['.tsx', '.js']
+  },
   plugins: [
     new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
