@@ -1,5 +1,4 @@
 import {isNumber, formatTimeItem, validateTimeAndCursor} from '../src/index';
-import validate = WebAssembly.validate;
 
 describe('#isNumber()', () => {
   test('should return true for numbers', () => {
