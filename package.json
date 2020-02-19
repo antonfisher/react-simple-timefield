@@ -9,6 +9,7 @@
   },
   "license": "MIT",
   "main": "index.js",
+  "typings": "dist/index.d.ts",
   "scripts": {
     "build": "tsc && cd ./demo && npm run build && cd -",
     "test": "jest",
