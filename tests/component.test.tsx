@@ -5,16 +5,25 @@ import TimeField from '../src/index';
 describe('Component', () => {
   let a: ReactWrapper | null;
   let b: ReactWrapper | null;
+  let c: ReactWrapper | null;
+  let d: ReactWrapper | null;
+
   let persist: jest.Mock;
   let onChangeA: jest.Mock;
   let onChangeB: jest.Mock;
+  let onChangeC: jest.Mock;
+  let onChangeD: jest.Mock;
 
   beforeEach(() => {
     persist = jest.fn();
     onChangeA = jest.fn();
     onChangeB = jest.fn();
+    onChangeC = jest.fn();
+    onChangeD = jest.fn();
     a = mount(<TimeField value={'12:34'} onChange={onChangeA} />);
     b = mount(<TimeField value={'12:34:56'} onChange={onChangeB} showSeconds />);
+    c = mount(<TimeField value={'12:34'} onChange={onChangeC} returnEmptyString />);
+    d = mount(<TimeField value={'12:34:56'} onChange={onChangeD} showSeconds returnEmptyString />);
   });
 
   afterEach(() => {
@@ -32,6 +41,8 @@ describe('Component', () => {
   test('should render input field', () => {
     expect(a.find('input')).toHaveLength(1);
     expect(b.find('input')).toHaveLength(1);
+    expect(c.find('input')).toHaveLength(1);
+    expect(d.find('input')).toHaveLength(1);
   });
 
   test('should render custom input field', () => {
@@ -44,21 +55,29 @@ describe('Component', () => {
   test('should render time value from props', () => {
     expect(a.find('input').getElement().props.value).toEqual('12:34');
     expect(b.find('input').getElement().props.value).toEqual('12:34:56');
+    expect(c.find('input').getElement().props.value).toEqual('12:34');
+    expect(d.find('input').getElement().props.value).toEqual('12:34:56');
   });
 
   test('should render reserved props', () => {
     expect(a.setProps({value: '21:43'}).state('value')).toEqual('21:43');
     expect(b.setProps({value: '21:43:13'}).state('value')).toEqual('21:43:13');
+    expect(c.setProps({value: '21:43'}).state('value')).toEqual('21:43');
+    expect(d.setProps({value: '21:43:13'}).state('value')).toEqual('21:43:13');
   });
 
   test('should keep old values w/o changes', () => {
     expect(a.setProps({value: '12:34'}).state('value')).toEqual('12:34');
     expect(b.setProps({value: '12:34:56'}).state('value')).toEqual('12:34:56');
+    expect(c.setProps({value: '12:34'}).state('value')).toEqual('12:34');
+    expect(d.setProps({value: '12:34:56'}).state('value')).toEqual('12:34:56');
   });
 
   test('should validate reserved props before render', () => {
     expect(a.setProps({value: '30:60'}).state('value')).toEqual('00:00');
     expect(b.setProps({value: '30:60:90'}).state('value')).toEqual('00:00:00');
+    expect(c.setProps({value: '30:60'}).state('value')).toEqual('00:00');
+    expect(d.setProps({value: '30:60:90'}).state('value')).toEqual('00:00:00');
   });
 
   test('should validate value after input change', () => {
@@ -67,6 +86,12 @@ describe('Component', () => {
 
     const eventB = {target: {value: '12:34:56'}, persist};
     expect(b.simulate('change', eventB).state('value')).toEqual('12:34:56');
+
+    const eventC = {target: {value: '12:34'}, persist};
+    expect(c.simulate('change', eventC).state('value')).toEqual('12:34');
+
+    const eventD = {target: {value: '12:34:56'}, persist};
+    expect(d.simulate('change', eventD).state('value')).toEqual('12:34:56');
   });
 
   test('should handle added number character', () => {
@@ -75,6 +100,12 @@ describe('Component', () => {
 
     const eventB = {target: {value: '12:34:156', selectionEnd: 7}, persist};
     expect(b.simulate('change', eventB).state('value')).toEqual('12:34:16');
+
+    const eventC = {target: {value: '212:34', selectionEnd: 1}, persist};
+    expect(c.simulate('change', eventC).state('value')).toEqual('22:34');
+
+    const eventD = {target: {value: '12:34:156', selectionEnd: 7}, persist};
+    expect(d.simulate('change', eventD).state('value')).toEqual('12:34:16');
   });
 
   test('should handle added ":" character', () => {
@@ -83,6 +114,12 @@ describe('Component', () => {
 
     const eventB = {target: {value: '12:34::56', selectionEnd: 6}, persist};
     expect(b.simulate('change', eventB).state('value')).toEqual('12:34:56');
+
+    const eventC = {target: {value: '12::34', selectionEnd: 3}, persist};
+    expect(c.simulate('change', eventC).state('value')).toEqual('12:34');
+
+    const eventD = {target: {value: '12:34::56', selectionEnd: 6}, persist};
+    expect(d.simulate('change', eventD).state('value')).toEqual('12:34:56');
   });
 
   test('should handle added number character before ":"', () => {
@@ -91,6 +128,12 @@ describe('Component', () => {
 
     const eventB = {target: {value: '12:341:56', selectionEnd: 6}, persist};
     expect(b.simulate('change', eventB).state('value')).toEqual('12:34:16');
+
+    const eventC = {target: {value: '121:34', selectionEnd: 3}, persist};
+    expect(c.simulate('change', eventC).state('value')).toEqual('12:14');
+
+    const eventD = {target: {value: '12:341:56', selectionEnd: 6}, persist};
+    expect(d.simulate('change', eventD).state('value')).toEqual('12:34:16');
   });
 
   test('should handle added number character before ":" (update position)', () => {
@@ -99,6 +142,12 @@ describe('Component', () => {
 
     const eventB = {target: {value: '12:334:56', selectionEnd: 5}, persist};
     expect(b.simulate('change', eventB).state('value')).toEqual('12:33:56');
+
+    const eventC = {target: {value: '132:34', selectionEnd: 2}, persist};
+    expect(c.simulate('change', eventC).state('value')).toEqual('13:34');
+
+    const eventD = {target: {value: '12:334:56', selectionEnd: 5}, persist};
+    expect(d.simulate('change', eventD).state('value')).toEqual('12:33:56');
   });
 
   test('should keep old value if position is out pf range', () => {
@@ -107,6 +156,12 @@ describe('Component', () => {
 
     const eventB = {target: {value: '12:34:561', selectionEnd: 9}, persist};
     expect(b.simulate('change', eventB).state('value')).toEqual('12:34:56');
+
+    const eventC = {target: {value: '12:341', selectionEnd: 6}, persist};
+    expect(c.simulate('change', eventC).state('value')).toEqual('12:34');
+
+    const eventD = {target: {value: '12:34:561', selectionEnd: 9}, persist};
+    expect(d.simulate('change', eventD).state('value')).toEqual('12:34:56');
   });
 
   test('should keep old value if not a number was typed', () => {
@@ -115,6 +170,12 @@ describe('Component', () => {
 
     const eventB = {target: {value: '12:34:a56', selectionEnd: 7}, persist};
     expect(b.simulate('change', eventB).state('value')).toEqual('12:34:56');
+
+    const eventC = {target: {value: 'a12:34', selectionEnd: 1}, persist};
+    expect(c.simulate('change', eventC).state('value')).toEqual('12:34');
+
+    const eventD = {target: {value: '12:34:a56', selectionEnd: 7}, persist};
+    expect(d.simulate('change', eventD).state('value')).toEqual('12:34:56');
   });
 
   test('should handle removed character', () => {
@@ -139,6 +200,12 @@ describe('Component', () => {
 
     const eventB = {target: {value: '12:34:46', selectionEnd: 7}, persist};
     expect(b.simulate('change', eventB).state('value')).toEqual('12:34:46');
+
+    const eventC = {target: {value: '12:44', selectionEnd: 4}, persist};
+    expect(c.simulate('change', eventC).state('value')).toEqual('12:44');
+
+    const eventD = {target: {value: '12:34:46', selectionEnd: 7}, persist};
+    expect(d.simulate('change', eventD).state('value')).toEqual('12:34:46');
   });
 
   test('should handle single ":" character replacement', () => {
@@ -147,6 +214,12 @@ describe('Component', () => {
 
     const eventB = {target: {value: '12:34a56', selectionEnd: 6}, persist};
     expect(b.simulate('change', eventB).state('value')).toEqual('12:34:56');
+
+    const eventC = {target: {value: '12a34', selectionEnd: 3}, persist};
+    expect(c.simulate('change', eventC).state('value')).toEqual('12:34');
+
+    const eventD = {target: {value: '12:34a56', selectionEnd: 6}, persist};
+    expect(d.simulate('change', eventD).state('value')).toEqual('12:34:56');
   });
 
   test('should handle more than 2 characters replacement (number)', () => {
@@ -177,4 +250,12 @@ describe('Component', () => {
     const eventA = {target: {value: 'a', selectionEnd: 1}, persist};
     expect(a.simulate('change', eventA).state('value')).toEqual('12:34');
   });
+
+  test('should handle character deletion (returnEmptyString = true)', () => {
+    const eventC = {target: {value: '12:3', selectionEnd: 4}, persist};
+    expect(c.simulate('change', eventC).state('value')).toEqual('');
+
+    const eventD = {target: {value: '12:34:5', selectionEnd: 4}, persist};
+    expect(d.simulate('change', eventD).state('value')).toEqual('');
+  })
 });

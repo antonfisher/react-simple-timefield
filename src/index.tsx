@@ -15,11 +15,16 @@ export function formatTimeItem(value?: string | number): string {
 
 export function validateTimeAndCursor(
   showSeconds = false,
+  returnEmptyString = false,
   value = '',
   defaultValue = '',
   colon = DEFAULT_COLON,
   cursorPosition = 0
 ): [string, number] {
+  if (returnEmptyString && value.length === 0) {
+    return ['', 0];
+  }
+
   const [oldH, oldM, oldS] = defaultValue.split(colon);
 
   let newCursorPosition = Number(cursorPosition);
@@ -66,6 +71,7 @@ interface Props {
   input: ReactElement | null;
   colon?: string;
   style?: CSSProperties | {};
+  returnEmptyString?: boolean;
 }
 
 interface State {
@@ -73,12 +79,14 @@ interface State {
   _colon: string;
   _defaultValue: string;
   _showSeconds: boolean;
+  _returnEmptyString: boolean;
   _maxLength: number;
 }
 
 export default class TimeField extends React.Component<Props, State> {
   static defaultProps: Props = {
     showSeconds: false,
+    returnEmptyString: false,
     input: null,
     style: {},
     colon: DEFAULT_COLON
@@ -88,14 +96,22 @@ export default class TimeField extends React.Component<Props, State> {
     super(props);
 
     const _showSeconds = Boolean(props.showSeconds);
+    const _returnEmptyString = Boolean(props.returnEmptyString);
     const _defaultValue = _showSeconds ? DEFAULT_VALUE_FULL : DEFAULT_VALUE_SHORT;
     const _colon = props.colon && props.colon.length === 1 ? props.colon : DEFAULT_COLON;
-    const [validatedTime] = validateTimeAndCursor(_showSeconds, this.props.value, _defaultValue, _colon);
+    const [validatedTime] = validateTimeAndCursor(
+      _showSeconds,
+      _returnEmptyString,
+      this.props.value,
+      _defaultValue,
+      _colon
+    );
 
     this.state = {
       value: validatedTime,
       _colon,
       _showSeconds,
+      _returnEmptyString,
       _defaultValue,
       _maxLength: _defaultValue.length
     };
@@ -107,6 +123,7 @@ export default class TimeField extends React.Component<Props, State> {
     if (this.props.value !== prevProps.value) {
       const [validatedTime] = validateTimeAndCursor(
         this.state._showSeconds,
+        this.state._returnEmptyString,
         this.props.value,
         this.state._defaultValue,
         this.state._colon
@@ -123,12 +140,13 @@ export default class TimeField extends React.Component<Props, State> {
     const inputValue = inputEl.value;
     const position = inputEl.selectionEnd || 0;
     const isTyped = inputValue.length > oldValue.length;
+    const isDelete = inputValue.length < oldValue.length;
     const cursorCharacter = inputValue[position - 1];
     const addedCharacter = isTyped ? cursorCharacter : null;
     const removedCharacter = isTyped ? null : oldValue[position];
     const replacedSingleCharacter = inputValue.length === oldValue.length ? oldValue[position - 1] : null;
     const colon = this.state._colon;
-
+    const returnEmptyString = this.state._returnEmptyString;
     let newValue = oldValue;
     let newPosition = position;
 
@@ -168,7 +186,10 @@ export default class TimeField extends React.Component<Props, State> {
       newValue = oldValue;
       newPosition = position - 1;
     } else if (removedCharacter !== null) {
-      if ((position === 2 || position === 5) && removedCharacter === colon) {
+      if (isDelete && returnEmptyString) {
+        newValue = '';
+        newPosition = 1;
+      } else if ((position === 2 || position === 5) && removedCharacter === colon) {
         newValue = `${inputValue.substr(0, position - 1)}0${colon}${inputValue.substr(position)}`;
         newPosition = position - 1;
       } else {
@@ -179,6 +200,7 @@ export default class TimeField extends React.Component<Props, State> {
 
     const [validatedTime, validatedCursorPosition] = validateTimeAndCursor(
       this.state._showSeconds,
+      returnEmptyString,
       newValue,
       oldValue,
       colon,
@@ -196,7 +218,7 @@ export default class TimeField extends React.Component<Props, State> {
 
   render(): ReactElement {
     const {value} = this.state;
-    const {onChange, style, showSeconds, input, colon, ...props} = this.props; //eslint-disable-line no-unused-vars
+    const {onChange, style, showSeconds, input, colon, returnEmptyString, ...props} = this.props; //eslint-disable-line no-unused-vars
     const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) =>
       this.onInputChange(event, (e: ChangeEvent<HTMLInputElement>, v: string) => onChange && onChange(e, v));
 
