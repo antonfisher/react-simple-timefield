@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.2.0](https://github.com/antonfisher/react-simple-timefield/compare/v3.0.0...v3.2.0) (2020-08-22)
+
+
+### Features
+
+* add inputRef to props ([65b2c1f](https://github.com/antonfisher/react-simple-timefield/commit/65b2c1ff1aabdfd41fefb9233735d1cce23159fe))
+* convert code to typescript ([81a886c](https://github.com/antonfisher/react-simple-timefield/commit/81a886ce7a1a0ac6b827e927f0db6a6794ac5fc0))
+
+
+### Bug Fixes
+
+* **typings:** build and provide type definitions to NPM ([fa950cf](https://github.com/antonfisher/react-simple-timefield/commit/fa950cf32a02da3bec2733b6a60eb495ca0df3cd))
+
 ## [3.0.0](https://github.com/antonfisher/react-simple-timefield/compare/v2.0.3...v3.0.0) (2019-09-29)
 
 
