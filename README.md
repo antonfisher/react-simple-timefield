@@ -25,6 +25,7 @@ import TimeField from 'react-simple-timefield';
     value={time}                       // {String}   required, format '00:00' or '00:00:00'
     onChange={(event, value) => {...}} // {Function} required
     input={<MyCustomInputElement />}   // {Element}  default: <input type="text" />
+    inputRef={(ref) => {...}}          // {Function} input's ref
     colon=":"                          // {String}   default: ":"
     showSeconds                        // {Boolean}  default: false
 />
@@ -86,11 +87,15 @@ in `demo/index.tsx` file.
 ```bash
 # run development mode
 cd demo
+npm install
+npm install --only=dev
 npm run dev
 ```
 
 #### Build:
 ```bash
+npm install
+npm install --only=dev
 npm test
 npm run format
 npm run build

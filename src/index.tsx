@@ -64,6 +64,7 @@ interface Props {
   onChange?: onChangeType;
   showSeconds?: boolean;
   input: ReactElement | null;
+  inputRef?: () => HTMLInputElement | null;
   colon?: string;
   style?: CSSProperties | {};
 }
@@ -196,7 +197,7 @@ export default class TimeField extends React.Component<Props, State> {
 
   render(): ReactElement {
     const {value} = this.state;
-    const {onChange, style, showSeconds, input, colon, ...props} = this.props; //eslint-disable-line no-unused-vars
+    const {onChange, style, showSeconds, input, inputRef, colon, ...props} = this.props; //eslint-disable-line no-unused-vars
     const onChangeHandler = (event: ChangeEvent<HTMLInputElement>) =>
       this.onInputChange(event, (e: ChangeEvent<HTMLInputElement>, v: string) => onChange && onChange(e, v));
 
@@ -213,6 +214,7 @@ export default class TimeField extends React.Component<Props, State> {
       <input
         type="text"
         {...props}
+        ref={inputRef}
         value={value}
         onChange={onChangeHandler}
         style={{width: showSeconds ? 54 : 35, ...style}}
