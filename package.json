@@ -1,12 +1,8 @@
 {
   "name": "react-simple-timefield",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "description": "Simple React time input field",
-  "author": {
-    "name": "Anton Fisher",
-    "email": "a.fschr@gmail.com",
-    "url": "http://antonfisher.com"
-  },
+  "author": "Anton Fisher <a.fschr@gmail.com> (http://antonfisher.com)",
   "license": "MIT",
   "main": "index.js",
   "typings": "dist/index.d.ts",
@@ -51,6 +47,7 @@
     "@types/enzyme": "3.10.4",
     "@types/jest": "24.0.25",
     "@types/react": "16.9.17",
+    "@types/react-dom": "16.9.8",
     "@typescript-eslint/eslint-plugin": "2.15.0",
     "@typescript-eslint/parser": "2.15.0",
     "babel-cli": "6.26.0",
@@ -84,13 +81,11 @@
     "@types/enzyme-adapter-react-16": "1.0.5"
   },
   "contributors": [
-    {
-      "name": "Anton Fisher",
-      "url": "https://github.com/antonfisher"
-    },
-    {
-      "name": "Nicholas Yang",
-      "url": "https://github.com/NicholasLYang"
-    }
-  ]
+    "Anton Fisher (https://github.com/antonfisher)",
+    "Nicholas Yang (https://github.com/NicholasLYang)"
+  ],
+  "directories": {
+    "doc": "docs",
+    "test": "tests"
+  }
 }
