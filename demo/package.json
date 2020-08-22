@@ -25,5 +25,10 @@
     "webpack": "4.41.5",
     "webpack-cli": "3.3.10",
     "webpack-dev-server": "3.10.1"
-  }
+  },
+  "main": "index.js",
+  "keywords": [],
+  "author": "Anton Fisher <a.fschr@gmail.com> (http://antonfisher.com)",
+  "license": "MIT",
+  "description": ""
 }
