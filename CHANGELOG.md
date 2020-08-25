@@ -2,8 +2,11 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<<<<<<< HEAD
 ### [3.2.2](https://github.com/antonfisher/react-simple-timefield/compare/v3.2.1...v3.2.2) (2020-08-25)
 
+=======
+>>>>>>> a637eab8c297163f9249d6147e08ba157bcf3640
 ### [3.2.1](https://github.com/antonfisher/react-simple-timefield/compare/v3.2.0...v3.2.1) (2020-08-25)
 
 ## [3.2.0](https://github.com/antonfisher/react-simple-timefield/compare/v3.0.0...v3.2.0) (2020-08-22)
