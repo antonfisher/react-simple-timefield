@@ -1,4 +1,5 @@
-import React, {ChangeEvent, CSSProperties, ReactElement} from 'react';
+import * as React from 'react';
+import {ChangeEvent, CSSProperties, ReactElement} from 'react';
 
 const DEFAULT_COLON = ':';
 const DEFAULT_VALUE_SHORT = `00${DEFAULT_COLON}00`;
