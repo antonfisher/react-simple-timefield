@@ -3,8 +3,9 @@ import React, {ChangeEvent, CSSProperties, ReactElement} from 'react';
 const DEFAULT_COLON = ':';
 const DEFAULT_VALUE_SHORT = `00${DEFAULT_COLON}00`;
 const DEFAULT_VALUE_FULL = `00${DEFAULT_COLON}00${DEFAULT_COLON}00`;
-const DEFAULT_VALUE_HOURS_LEN = (len = 2): string => `${'0'.repeat(len)}${DEFAULT_COLON}00${DEFAULT_COLON}00`;
 const DEFAULT_HOURS_LENGTH = 2;
+const DEFAULT_VALUE_HOURS_LEN = (len = DEFAULT_HOURS_LENGTH): string =>
+  `${'0'.repeat(len)}${DEFAULT_COLON}00${DEFAULT_COLON}00`;
 const DEFAULT_COLON_POSITIONS = [3, 6];
 const DEFAULT_NUMBER_POSITIONS = [2, 5];
 
