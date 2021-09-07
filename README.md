@@ -28,6 +28,8 @@ import TimeField from 'react-simple-timefield';
     inputRef={(ref) => {...}}          // {Function} input's ref
     colon=":"                          // {String}   default: ":"
     showSeconds                        // {Boolean}  default: false
+    disableHoursLimit                  // {Boolean}  default: false
+    maxHoursLength={3}                 // {Number}   default: 2, should be equal or greater than 2
 />
 ```
 
