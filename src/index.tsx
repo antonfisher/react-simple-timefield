@@ -3,14 +3,19 @@ import React, {ChangeEvent, CSSProperties, ReactElement} from 'react';
 const DEFAULT_COLON = ':';
 const DEFAULT_VALUE_SHORT = `00${DEFAULT_COLON}00`;
 const DEFAULT_VALUE_FULL = `00${DEFAULT_COLON}00${DEFAULT_COLON}00`;
+const DEFAULT_VALUE_HOURS_LEN = (len = 2): string => `${'0'.repeat(len)}${DEFAULT_COLON}00${DEFAULT_COLON}00`;
+const DEFAULT_HOURS_LENGTH = 2;
+const DEFAULT_COLON_POSITIONS = [3, 6];
+const DEFAULT_NUMBER_POSITIONS = [2, 5];
 
 export function isNumber<T>(value: T): boolean {
   const number = Number(value);
   return !isNaN(number) && String(value) === String(number);
 }
 
-export function formatTimeItem(value?: string | number): string {
-  return `${value || ''}00`.substr(0, 2);
+export function formatTimeItem(value?: string | number, len = DEFAULT_HOURS_LENGTH): string {
+  const zeros = '0'.repeat(len);
+  return `${value || ''}${zeros}`.substr(0, len);
 }
 
 export function validateTimeAndCursor(
@@ -18,23 +23,27 @@ export function validateTimeAndCursor(
   value = '',
   defaultValue = '',
   colon = DEFAULT_COLON,
-  cursorPosition = 0
+  cursorPosition = 0,
+  disableHoursLimit = false,
+  maxHoursLength = DEFAULT_HOURS_LENGTH
 ): [string, number] {
   const [oldH, oldM, oldS] = defaultValue.split(colon);
 
   let newCursorPosition = Number(cursorPosition);
   let [newH, newM, newS] = String(value).split(colon);
 
-  newH = formatTimeItem(newH);
-  if (Number(newH[0]) > 2) {
-    newH = oldH;
-    newCursorPosition -= 1;
-  } else if (Number(newH[0]) === 2) {
-    if (Number(oldH[0]) === 2 && Number(newH[1]) > 3) {
-      newH = `2${oldH[1]}`;
-      newCursorPosition -= 2;
-    } else if (Number(newH[1]) > 3) {
-      newH = '23';
+  newH = formatTimeItem(newH, maxHoursLength);
+  if (!disableHoursLimit) {
+    if (Number(newH[0]) > 2) {
+      newH = oldH;
+      newCursorPosition -= 1;
+    } else if (Number(newH[0]) === 2) {
+      if (Number(oldH[0]) === 2 && Number(newH[1]) > 3) {
+        newH = `2${oldH[1]}`;
+        newCursorPosition -= 2;
+      } else if (Number(newH[1]) > 3) {
+        newH = '23';
+      }
     }
   }
 
@@ -67,6 +76,8 @@ interface Props {
   inputRef?: () => HTMLInputElement | null;
   colon?: string;
   style?: CSSProperties | {};
+  disableHoursLimit?: boolean;
+  maxHoursLength?: number;
 }
 
 interface State {
@@ -75,31 +86,64 @@ interface State {
   _defaultValue: string;
   _showSeconds: boolean;
   _maxLength: number;
+  _disableHoursLimit: boolean;
+  _maxHoursLength: number;
 }
 
 export default class TimeField extends React.Component<Props, State> {
+  private numberPositions: number[];
+  private colonPositions: number[];
+
   static defaultProps: Props = {
     showSeconds: false,
     input: null,
     style: {},
-    colon: DEFAULT_COLON
+    colon: DEFAULT_COLON,
+    disableHoursLimit: false,
+    maxHoursLength: DEFAULT_HOURS_LENGTH
   };
 
   constructor(props: Props) {
     super(props);
 
     const _showSeconds = Boolean(props.showSeconds);
-    const _defaultValue = _showSeconds ? DEFAULT_VALUE_FULL : DEFAULT_VALUE_SHORT;
     const _colon = props.colon && props.colon.length === 1 ? props.colon : DEFAULT_COLON;
-    const [validatedTime] = validateTimeAndCursor(_showSeconds, this.props.value, _defaultValue, _colon);
+    const _disableHoursLimit = Boolean(props.disableHoursLimit);
+    const _maxHoursLength = _disableHoursLimit ? Number(props.maxHoursLength) : DEFAULT_HOURS_LENGTH;
+    const _defaultValue = _showSeconds
+      ? _maxHoursLength > 2
+        ? DEFAULT_VALUE_HOURS_LEN(_maxHoursLength)
+        : DEFAULT_VALUE_FULL
+      : DEFAULT_VALUE_SHORT;
+
+    const [validatedTime] = validateTimeAndCursor(
+      _showSeconds,
+      this.props.value,
+      _defaultValue,
+      _colon,
+      0,
+      _disableHoursLimit,
+      _maxHoursLength
+    );
 
     this.state = {
       value: validatedTime,
       _colon,
       _showSeconds,
       _defaultValue,
-      _maxLength: _defaultValue.length
+      _maxLength: _defaultValue.length,
+      _disableHoursLimit,
+      _maxHoursLength
     };
+
+    if (_disableHoursLimit && _maxHoursLength > DEFAULT_HOURS_LENGTH) {
+      const shift = _maxHoursLength - DEFAULT_HOURS_LENGTH;
+      this.colonPositions = DEFAULT_COLON_POSITIONS.map((pos) => pos + shift);
+      this.numberPositions = DEFAULT_NUMBER_POSITIONS.map((pos) => pos + shift);
+    } else {
+      this.colonPositions = DEFAULT_COLON_POSITIONS;
+      this.numberPositions = DEFAULT_NUMBER_POSITIONS;
+    }
 
     this.onInputChange = this.onInputChange.bind(this);
   }
@@ -110,7 +154,10 @@ export default class TimeField extends React.Component<Props, State> {
         this.state._showSeconds,
         this.props.value,
         this.state._defaultValue,
-        this.state._colon
+        this.state._colon,
+        0,
+        this.state._disableHoursLimit,
+        this.state._maxHoursLength
       );
       this.setState({
         value: validatedTime
@@ -136,15 +183,15 @@ export default class TimeField extends React.Component<Props, State> {
     if (addedCharacter !== null) {
       if (position > this.state._maxLength) {
         newPosition = this.state._maxLength;
-      } else if ((position === 3 || position === 6) && addedCharacter === colon) {
+      } else if (this.colonPositions.includes(position) && addedCharacter === colon) {
         newValue = `${inputValue.substr(0, position - 1)}${colon}${inputValue.substr(position + 1)}`;
-      } else if ((position === 3 || position === 6) && isNumber(addedCharacter)) {
+      } else if (this.colonPositions.includes(position) && isNumber(addedCharacter)) {
         newValue = `${inputValue.substr(0, position - 1)}${colon}${addedCharacter}${inputValue.substr(position + 2)}`;
         newPosition = position + 1;
       } else if (isNumber(addedCharacter)) {
         // user typed a number
         newValue = inputValue.substr(0, position - 1) + addedCharacter + inputValue.substr(position + 1);
-        if (position === 2 || position === 5) {
+        if (this.numberPositions.includes(position)) {
           newPosition = position + 1;
         }
       } else {
@@ -154,7 +201,7 @@ export default class TimeField extends React.Component<Props, State> {
     } else if (replacedSingleCharacter !== null) {
       // user replaced only a single character
       if (isNumber(cursorCharacter)) {
-        if (position - 1 === 2 || position - 1 === 5) {
+        if (this.numberPositions.includes(position - 1)) {
           newValue = `${inputValue.substr(0, position - 1)}${colon}${inputValue.substr(position)}`;
         } else {
           newValue = inputValue;
@@ -169,7 +216,7 @@ export default class TimeField extends React.Component<Props, State> {
       newValue = oldValue;
       newPosition = position - 1;
     } else if (removedCharacter !== null) {
-      if ((position === 2 || position === 5) && removedCharacter === colon) {
+      if (this.numberPositions.includes(position) && removedCharacter === colon) {
         newValue = `${inputValue.substr(0, position - 1)}0${colon}${inputValue.substr(position)}`;
         newPosition = position - 1;
       } else {
@@ -183,7 +230,9 @@ export default class TimeField extends React.Component<Props, State> {
       newValue,
       oldValue,
       colon,
-      newPosition
+      newPosition,
+      this.state._disableHoursLimit,
+      this.state._maxHoursLength
     );
 
     this.setState({value: validatedTime}, () => {
