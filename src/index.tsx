@@ -109,7 +109,10 @@ export default class TimeField extends React.Component<Props, State> {
     const _showSeconds = Boolean(props.showSeconds);
     const _colon = props.colon && props.colon.length === 1 ? props.colon : DEFAULT_COLON;
     const _disableHoursLimit = Boolean(props.disableHoursLimit);
-    const _maxHoursLength = _disableHoursLimit ? Number(props.maxHoursLength) : DEFAULT_HOURS_LENGTH;
+    const _maxHoursLength =
+      _disableHoursLimit && Number(props.maxHoursLength) > DEFAULT_HOURS_LENGTH
+        ? Number(props.maxHoursLength)
+        : DEFAULT_HOURS_LENGTH;
     const _defaultValue = _showSeconds
       ? _maxHoursLength > 2
         ? DEFAULT_VALUE_HOURS_LEN(_maxHoursLength)
