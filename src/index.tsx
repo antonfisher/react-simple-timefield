@@ -62,6 +62,7 @@ type onChangeType = (event: ChangeEvent<HTMLInputElement>, value: string) => voi
 
 interface Props {
   value?: string;
+  disabled?: boolean;
   onChange?: onChangeType;
   showSeconds?: boolean;
   input: ReactElement | null;

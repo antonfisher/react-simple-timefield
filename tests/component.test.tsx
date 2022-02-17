@@ -46,6 +46,13 @@ describe('Component', () => {
     expect(b.find('input').getElement().props.value).toEqual('12:34:56');
   });
 
+  test('should render disabled input', () => {
+    a.setProps({disabled: true});
+    b.setProps({disabled: true});
+    expect(a.find('input').getElement().props.disabled).toBe(true);
+    expect(b.find('input').getElement().props.disabled).toBe(true);
+  });
+
   test('should render reserved props', () => {
     expect(a.setProps({value: '21:43'}).state('value')).toEqual('21:43');
     expect(b.setProps({value: '21:43:13'}).state('value')).toEqual('21:43:13');
