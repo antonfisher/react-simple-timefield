@@ -1,5 +1,14 @@
 # react-simple-timefield
 
+```
+This package is a temporary fork! Literally just created and published
+to have React 18 support while waiting for this PR to be accepted:
+
+https://github.com/antonfisher/react-simple-timefield/pull/38
+
+- Michael Johansen
+```
+
 Simple React time input field, check out [demo](https://antonfisher.com/react-simple-timefield/).
 
 [![Build Status](https://travis-ci.org/antonfisher/react-simple-timefield.svg?branch=master)](https://travis-ci.org/antonfisher/react-simple-timefield)
