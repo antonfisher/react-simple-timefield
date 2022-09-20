@@ -1,5 +1,5 @@
 {
-  "name": "react-simple-timefield",
+  "name": "react-simple-timefield-for-react18-temp",
   "version": "3.3.0",
   "description": "Simple React time input field",
   "author": "Anton Fisher <a.fschr@gmail.com> (http://antonfisher.com)",
@@ -22,7 +22,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/antonfisher/react-simple-timefield.git"
+    "url": "git+https://github.com/michaeljohansen/react-simple-timefield.git"
   },
   "keywords": [
     "react",
