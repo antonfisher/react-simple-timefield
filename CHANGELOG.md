@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.3.1](https://github.com/antonfisher/react-simple-timefield/compare/v3.2.5...v3.3.1) (2023-01-26)
+
+
+### Features
+
+* support react 18 ([84e45a2](https://github.com/antonfisher/react-simple-timefield/commit/84e45a2ed719a2bd8f6bb94152427d93d8310f1f))
+
 ### [3.2.5](https://github.com/antonfisher/react-simple-timefield/compare/v3.2.4...v3.2.5) (2021-10-13)
 
 ### [3.2.4](https://github.com/antonfisher/react-simple-timefield/compare/v3.2.3...v3.2.4) (2021-10-13)
